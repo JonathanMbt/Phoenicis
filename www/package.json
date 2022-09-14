@@ -10,6 +10,9 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.5",
     "axios": "^0.27.2",
     "ci": "^2.2.0",
     "react": "^18.2.0",
