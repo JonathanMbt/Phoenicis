@@ -43,11 +43,12 @@ jobs:
         run: npm run build --if-present
   
       - name: Deploy to Docker Host
-        uses: JonathanMbt/docker-deployment-action@V2
+        uses: JonathanMbt/docker-deployment-action@v3
         with:
           remote_docker_host: jonathan@calen.unknownhost.ml
           remote_proxy_host: 1m897.ftp.infomaniak.com
           remote_docker_port: 8822
+          ssh_public_proxy_key: ${{ secrets.SSH_PUBLIC_PROXY_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
