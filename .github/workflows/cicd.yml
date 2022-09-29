@@ -1,12 +1,13 @@
 name: CI
-  
+
 on: 
   push:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     strategy:
       matrix:
