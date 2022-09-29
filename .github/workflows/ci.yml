@@ -1,6 +1,8 @@
 name: CI
   
-on: push
+on: 
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -29,11 +31,14 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
+        working-directory: ./www
         run: npm ci
         
       - name: Lint
+        working-directory: ./www
         run: npm run lint
 
       - name: Build
+        working-directory: ./www
         run: npm run build --if-present
       
