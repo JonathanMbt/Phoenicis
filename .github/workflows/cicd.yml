@@ -43,7 +43,7 @@ jobs:
         run: npm run build --if-present
   
       - name: Deploy to Docker Host
-        uses: JonathanMbt/docker-deployment-action@v4.8
+        uses: JonathanMbt/docker-deployment-action@v4.9
         with:
           remote_docker_host: jonathan@calen.unknownhost.ml
           remote_proxy_host: 1m897_mbtjonathan@1m897.ftp.infomaniak.com
