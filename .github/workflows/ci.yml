@@ -41,4 +41,15 @@ jobs:
       - name: Build
         working-directory: ./www
         run: npm run build --if-present
-      
+  
+      - name: Deploy to Docker Host
+        uses: wshihadeh/docker-deployment-action@v2
+        with:
+          remote_docker_host: jonathan@home.mbtjonathan.studio
+          remote_docker_port: 8822
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          deployment_mode: docker-compose
+          args: up -d
+          docker_prune: "true"
+          pull_images_first: "true"
