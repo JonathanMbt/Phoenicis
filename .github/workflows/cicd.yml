@@ -43,7 +43,7 @@ jobs:
         run: npm run build --if-present
   
       - name: Deploy to Docker Host
-        uses: wshihadeh/docker-deployment-action@v2
+        uses: JonathanMbt/docker-deployment-action@v2
         with:
           remote_docker_host: jonathan@calen.unknownhost.ml
           remote_docker_port: 8822
