@@ -51,6 +51,9 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
+          copy_stack_file: true
+          deploy_path: /home/jonathan/docker/calen
+          stack_file_name: docker-compose.yml
           args: up -d
-          docker_prune: "true"
-          pull_images_first: "true"
+          docker_prune: true
+          pull_images_first: true
