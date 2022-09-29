@@ -1,23 +1,23 @@
-import { Stack } from '@mui/material';
-import { FC, PropsWithChildren } from 'react';
+import { Stack } from '@mui/material'
+import { FC, PropsWithChildren } from 'react'
 
 interface Props {
-  backgroundColor?: string;
+  backgroundColor?: string
 }
 
 const SplashScreen: FC<Props & PropsWithChildren> = ({
   backgroundColor,
-  children,
+  children
 }) => {
   return (
     <Stack flexDirection="column" height="100vh" sx={{ backgroundColor }}>
       {children}
     </Stack>
-  );
-};
+  )
+}
 
 SplashScreen.defaultProps = {
-  backgroundColor: '#E9DAC4',
-};
+  backgroundColor: '#E9DAC4'
+}
 
-export default SplashScreen;
+export default SplashScreen
