@@ -1,0 +1,22 @@
+version: "3.6"
+
+services:
+  flame:
+    image: nginx:stable-alpine
+    container_name: phoenicis-www
+    volumes:
+      - ./build:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock # optional but required for Docker integration
+    ports:
+      - "127.0.0.1:5001:80"
+    networks:
+      - home
+    restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.http.routers.flame.entrypoints: web
+      traefik.http.routers.flame.rule: Host(`192.168.1.75`)
+
+networks:
+  home:
+    external: true

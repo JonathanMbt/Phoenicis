@@ -45,7 +45,7 @@ jobs:
       - name: Deploy to Docker Host
         uses: wshihadeh/docker-deployment-action@v2
         with:
-          remote_docker_host: jonathan@home.mbtjonathan.studio
+          remote_docker_host: jonathan@calen.unknownhost.ml
           remote_docker_port: 8822
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
