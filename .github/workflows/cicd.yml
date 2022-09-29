@@ -55,5 +55,4 @@ jobs:
           deploy_path: ~/docker/calen
           stack_file_name: docker-compose.yml
           args: up -d
-          docker_prune: true
           pull_images_first: true
