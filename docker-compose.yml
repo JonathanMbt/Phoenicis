@@ -15,7 +15,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.phoenicis.entrypoints: web
-      traefik.http.routers.phoenicis.rule: Host(`phoenicis.192.168.1.75.traefik.me`)
+      traefik.http.routers.phoenicis.rule: Host(`phoenicis.192.168.1.75.traefik.me`) || Host(`phoenicis-game.com`)
 
 networks:
   home:
