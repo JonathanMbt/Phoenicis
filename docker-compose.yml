@@ -14,8 +14,8 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.flame.entrypoints: web
-      traefik.http.routers.flame.rule: Host(`192.168.1.75`)
+      traefik.http.routers.phoenicis.entrypoints: web
+      traefik.http.routers.phoenicis.rule: Host(`192.168.1.75`)
 
 networks:
   home:
