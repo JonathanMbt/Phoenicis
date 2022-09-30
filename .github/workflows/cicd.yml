@@ -54,7 +54,7 @@ jobs:
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
           copy_stack_file: true
-          deploy_path: ~/docker/calen
+          deploy_path: ~/docker/phoenicis
           stack_file_name: docker-compose.yml
           args: up -d
           pull_images_first: true
