@@ -1,9 +1,8 @@
 import { Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import './assets/css/default.css';
-import SplashScreen from './components/UI/SplashScreen';
 import PageTransition from './components/Animation/PageTransition';
+import SplashScreen from './components/UI/SplashScreen';
 
 const App: FC = () => {
   return (
@@ -22,7 +21,7 @@ const App: FC = () => {
         </Stack>
         <Stack position="absolute" flexDirection="row" left={20} bottom={20}>
           <ButtonGroup color="inherit" variant="text">
-            <Link to="test">FR</Link>
+            <Button>FR</Button>
             <Button>EN</Button>
             <Button>ES</Button>
           </ButtonGroup>

@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
+import { CssBaseline } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -8,6 +9,7 @@ import phoenicisTheme from './components/UI/theme';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={phoenicisTheme}>
+      <CssBaseline />
       <BrowserRouter>
         <AnimatedRoutes />
       </BrowserRouter>
