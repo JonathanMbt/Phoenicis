@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "commit": "cz",
     "lint": "npm run lint:prettier && npm run lint:eslint",
-    "lint:eslint": "npx eslint --cache --fix './src/**/*.{js,jsx,ts,tsx}'",
-    "lint:prettier": "npx prettier --cache --write './src/**/*.{js,jsx,ts,tsx}'"
+    "lint:eslint": "npx eslint --cache --quiet './src/**/*.{js,jsx,ts,tsx}'",
+    "lint:prettier": "npx prettier --cache --check './src/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

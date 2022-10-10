@@ -21,7 +21,6 @@
         "react"
     ],
     "rules": {
-        "semi": ["error", "always"],
         "@typescript-eslint/semi": ["error", "always"],
         "@typescript-eslint/comma-dangle": ["error", "always-multiline"]
     },
