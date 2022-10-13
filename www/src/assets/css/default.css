@@ -4,6 +4,12 @@
   src: url('../fonts/symbiod.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'Caslon';
+  font-style: normal;
+  src: url('../fonts/CaslonAntique.ttf') format('truetype');
+}
+
 body {
   margin: 0;
   overflow: hidden;
