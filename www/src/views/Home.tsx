@@ -9,8 +9,8 @@ import '../assets/css/default.css';
 import i18next from 'i18next';
 
 const Home: FC = () => {
-  const changeLng = useCallback((language: string) => {
-    i18next.changeLanguage(language);
+  const changeLng = useCallback(async (language: string) => {
+    await i18next.changeLanguage(language);
   }, []);
 
   return (

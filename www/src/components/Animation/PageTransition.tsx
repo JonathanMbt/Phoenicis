@@ -29,9 +29,6 @@ const PageTransition: FC<Props & PropsWithChildren> = ({
       animate="displayed"
       exit="triggered"
       transition={transition}
-      onUpdate={(v) => {
-        console.debug(v);
-      }}
     >
       {children}
     </motion.div>

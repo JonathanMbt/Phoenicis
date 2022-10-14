@@ -7,15 +7,19 @@ import AnimatedRoutes from './AnimatedRoutes';
 import phoenicisTheme from './components/UI/theme';
 import { initI18n } from './languages';
 
-initI18n().then(() => {
-  ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-      <ThemeProvider theme={phoenicisTheme}>
-        <CssBaseline />
-        <BrowserRouter>
-          <AnimatedRoutes />
-        </BrowserRouter>
-      </ThemeProvider>
-    </React.StrictMode>
-  );
-});
+initI18n()
+  .then(() => {
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+      <React.StrictMode>
+        <ThemeProvider theme={phoenicisTheme}>
+          <CssBaseline />
+          <BrowserRouter>
+            <AnimatedRoutes />
+          </BrowserRouter>
+        </ThemeProvider>
+      </React.StrictMode>
+    );
+  })
+  .catch((error) => {
+    throw error;
+  });

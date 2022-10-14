@@ -7,6 +7,7 @@ interface Props {
   to?: string;
   color?: string;
   onClick?: () => void;
+  //eslint-disable-next-line
   FramerAnimation?: React.ComponentType<any>;
 }
 

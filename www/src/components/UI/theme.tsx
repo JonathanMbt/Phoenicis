@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from '@mui/material';
+import { createTheme } from '@mui/material';
 import { TypographyStyleOptions } from '@mui/material/styles/createTypography';
 
 const headings: TypographyStyleOptions = {
@@ -10,7 +10,7 @@ const paragraph: TypographyStyleOptions = {
   fontSize: 30,
 };
 
-let phoenicisTheme = createTheme({
+const phoenicisTheme = createTheme({
   typography: {
     fontFamily: ['Caslon'].join(','),
     h1: headings,
@@ -29,7 +29,5 @@ let phoenicisTheme = createTheme({
     },
   },
 });
-
-//phoenicisTheme = responsiveFontSizes(phoenicisTheme);
 
 export default phoenicisTheme;
