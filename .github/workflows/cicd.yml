@@ -57,7 +57,7 @@ jobs:
   
       - name: Deploy to Docker Host
         if: ${{ github.ref_name	== 'main' }}
-        uses: JonathanMbt/docker-deployment-action@v4.9
+        uses: JonathanMbt/docker-deployment-action@v5.4
         with:
           remote_docker_host: jonathan@calen.unknownhost.ml
           remote_proxy_host: 1m897_mbtjonathan@1m897.ftp.infomaniak.com
@@ -68,6 +68,7 @@ jobs:
           deployment_mode: docker-compose
           copy_stack_file: true
           deploy_path: ~/docker/phoenicis
+          build_path: ./www/dist/
           stack_file_name: docker-compose.yml
           args: up -d
           pull_images_first: true
