@@ -25,7 +25,5 @@
     }
   },
   "dependencies": {
-    "i18next": "^21.10.0",
-    "react-i18next": "^11.18.6"
   }
 }
