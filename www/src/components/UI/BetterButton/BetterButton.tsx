@@ -6,6 +6,7 @@ import BetterButtonStyles from './BetterButton.css';
 interface Props {
   to?: string;
   color?: string;
+  onClick?: () => void;
   FramerAnimation?: React.ComponentType<any>;
 }
 
@@ -13,6 +14,7 @@ const BetterButton: FC<Props & ButtonTypeMap['props'] & PropsWithChildren> = ({
   children,
   to,
   color,
+  onClick,
   FramerAnimation,
   ...props
 }) => {
@@ -22,6 +24,7 @@ const BetterButton: FC<Props & ButtonTypeMap['props'] & PropsWithChildren> = ({
         <FramerAnimation>
           <BetterButtonStyles
             {...props}
+            onClick={onClick}
             sx={{ color: color ?? 'black' }}
             component={to ? Link : Button}
             to={to ?? ''}
@@ -32,6 +35,7 @@ const BetterButton: FC<Props & ButtonTypeMap['props'] & PropsWithChildren> = ({
       ) : (
         <BetterButtonStyles
           {...props}
+          onClick={onClick}
           sx={{ color: color ?? 'black' }}
           component={to ? Link : Button}
           to={to ?? ''}

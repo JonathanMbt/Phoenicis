@@ -1,8 +1,8 @@
 import { AnimatePresence } from 'framer-motion';
 import { FC } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import App from './App';
-import Test from './test';
+import Home from './views/Home';
+import WIP from './views/WIP';
 
 const AnimatedRoutes: FC = () => {
   const location = useLocation();
@@ -10,8 +10,8 @@ const AnimatedRoutes: FC = () => {
   return (
     <AnimatePresence>
       <Routes key={location.pathname} location={location}>
-        <Route index element={<App />} />
-        <Route path="/test" element={<Test />} />
+        <Route index element={<Home />} />
+        <Route path="/WIP" element={<WIP />} />
       </Routes>
     </AnimatePresence>
   );

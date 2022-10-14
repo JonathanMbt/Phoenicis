@@ -7,18 +7,44 @@ interface Props {
 }
 
 const ComeAndGo: FC<Props & PropsWithChildren> = ({ direction, children }) => {
-  const variants: Variants = {
-    come: {
-      y: 0,
+  const variants: Record<Orientation, Variants> = {
+    down: {
+      come: {
+        y: 0,
+      },
+      go: {
+        y: '30%',
+      },
     },
-    go: {
-      y: '30%',
+    right: {
+      come: {
+        x: 0,
+      },
+      go: {
+        x: '30%',
+      },
+    },
+    left: {
+      come: {
+        x: 0,
+      },
+      go: {
+        x: '-30%',
+      },
+    },
+    top: {
+      come: {
+        y: 0,
+      },
+      go: {
+        y: '-30%',
+      },
     },
   };
 
   return (
     <motion.div
-      variants={variants}
+      variants={variants[direction]}
       initial="come"
       animate="go"
       transition={{ repeatType: 'reverse', repeat: Infinity, duration: 1.5 }}
@@ -26,6 +52,10 @@ const ComeAndGo: FC<Props & PropsWithChildren> = ({ direction, children }) => {
       {children}
     </motion.div>
   );
+};
+
+ComeAndGo.defaultProps = {
+  direction: 'down',
 };
 
 export default ComeAndGo;
