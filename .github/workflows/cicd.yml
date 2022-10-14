@@ -68,7 +68,7 @@ jobs:
           deployment_mode: docker-compose
           copy_stack_file: true
           deploy_path: ~/docker/phoenicis
-          build_path: ./www/dist/.
+          build_path: ./www/dist/*
           stack_file_name: docker-compose.yml
           args: up -d
           pull_images_first: true
