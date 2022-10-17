@@ -15,7 +15,7 @@ const Home: FC = () => {
 
   return (
     <PageTransition>
-      <SplashScreen position="absolute" zIndex="1">
+      <SplashScreen>
         <Stack alignSelf="center" flexDirection="column" justifyContent="flex-end" flexGrow={0.25}>
           <Typography variant="h1">Forgotten Shores</Typography>
         </Stack>
