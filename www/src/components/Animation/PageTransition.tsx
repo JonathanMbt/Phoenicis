@@ -14,10 +14,13 @@ const PageTransition: FC<Props & PropsWithChildren> = ({
   customVariants,
 }) => {
   const variants: Variants = {
-    displayed: { scale: 1, transition: { duration: 2, ease: 'easeInOut' } },
+    displayed: { scale: 1, transition: { duration: 1.4, ease: 'easeInOut' } },
     triggered: {
       y: '-100%',
-      transition: { type: 'spring', duration: 0.1, damping: 5, stiffness: 50 },
+      position: 'absolute',
+      zIndex: 1,
+      width: '100%',
+      transition: { type: 'spring', damping: 5, stiffness: 40 },
     },
     enter: { scale: 2 },
   };
