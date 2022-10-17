@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
   phoenicis-www:
-    image: nginx:stable-alpine
+    image: react-nginx # custom image
     container_name: phoenicis-www
     volumes:
       - ./build:/usr/share/nginx/html
