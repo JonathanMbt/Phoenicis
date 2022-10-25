@@ -55,15 +55,13 @@ jobs:
         if: ${{ github.ref_name	== 'main' }}
         uses: JonathanMbt/docker-deployment-action@v5.4
         with:
-          remote_docker_host: jonathan@calen.unknownhost.ml
-          remote_proxy_host: 1m897_mbtjonathan@1m897.ftp.infomaniak.com
+          remote_docker_host: jonathan@${{ secrets.SSH_HOST }}
           remote_docker_port: 8822
-          ssh_public_proxy_key: ${{ secrets.SSH_PUBLIC_PROXY_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
           copy_stack_file: true
-          deploy_path: ~/docker/phoenicis
+          deploy_path: ~/phoenicis
           build_path: ./www/dist/*
           stack_file_name: docker-compose.yml
           args: up -d
