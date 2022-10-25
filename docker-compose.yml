@@ -22,10 +22,11 @@ services:
       traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`)
       traefik.http.routers.phoenicis.tls: true
       traefik.http.routers.phoenicis.tls.certresolver: production
+      traefik.http.routers.phoenicis.middlewares: myfail2ban@file
       
       traefik.http.routers.phoenicis-insecure.entrypoints: web
       traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`)
-      traefik.http.routers.phoenicis-insecure.middlewares: force-secure
+      traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
 
 networks:
   home:
