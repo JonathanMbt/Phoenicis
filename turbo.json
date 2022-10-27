@@ -1,0 +1,15 @@
+{
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev":{
+        "cache": false
+    }
+  }
+}

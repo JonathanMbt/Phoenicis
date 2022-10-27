@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "build:www": "turbo run build --filter=www...",
+    "build:api": "turbo run build --filter=api...",
+    "lint": "turbo run lint"
   },
   "repository": {
     "type": "git",
@@ -17,13 +21,13 @@
   },
   "homepage": "https://github.com/JonathanMbt/Phoenicis#readme",
   "devDependencies": {
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "turbo": "^1.6.1"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-  }
+  "workspaces": ["www", "api"]
 }

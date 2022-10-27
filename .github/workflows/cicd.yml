@@ -15,7 +15,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -39,15 +41,12 @@ jobs:
 
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: Install dependencies
-        working-directory: ./www
         run: npm ci
         
       - name: Lint
-        working-directory: ./www
         run: npm run lint
 
       - name: Build
-        working-directory: ./www
         run: npm run build --if-present
   
       - name: Deploy to Docker Host
