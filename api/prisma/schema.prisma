@@ -14,8 +14,9 @@ datasource db {
 
 model User {
   uuid      String   @id @map("_id")
-  mail      String
+  mail      String @unique
   password  String
+  rememberMeToken String?
   createdAt DateTime @default(now())
   pseudo    String
   players   Players?

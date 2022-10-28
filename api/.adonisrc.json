@@ -20,7 +20,8 @@
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
-    "@wahyubucil/adonis-prisma"
+    "@wahyubucil/adonis-prisma",
+    "@adonisjs/auth"
   ],
   "aceProviders": [
     "@adonisjs/repl"
