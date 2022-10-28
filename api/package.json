@@ -11,13 +11,22 @@
     "lint:prettier": "npx prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
-    "extends": ["plugin:adonis/typescriptApp", "prettier"],
-    "plugins": ["prettier"],
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
     "rules": {
-      "prettier/prettier": ["error"]
+      "prettier/prettier": [
+        "error"
+      ]
     }
   },
-  "eslintIgnore": ["build"],
+  "eslintIgnore": [
+    "build"
+  ],
   "prettier": {
     "trailingComma": "es5",
     "semi": false,
@@ -39,6 +48,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "pino-pretty": "^9.1.1",
     "prettier": "^2.7.1",
+    "prisma": "^4.5.0",
     "typescript": "~4.6",
     "youch": "^3.2.2",
     "youch-terminal": "^2.1.5"
