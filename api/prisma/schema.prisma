@@ -10,51 +10,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pets{
-  uuid String @id @map("_id")
-  name String
-  race Race @default(PARROT)
-  variant Int
-  connection Int
-  skills Skill[]
-}
+// MODELS FORGOTTEN SHORES
 
-enum Race{
-  PARROT
-  MONKEY
-}
 model User {
-  uuid String @id @map("_id")
-  mail String
-  password String
+  uuid      String   @id @map("_id")
+  mail      String
+  password  String
   createdAt DateTime @default(now())
-  pseudo String
-  players Players
+  pseudo    String
+  players   Players?
 }
 
 model PlayerFS {
-  uuid String @id @map("_id")
-  token String
+  uuid          String        @id @map("_id")
+  token         String
   subscribeRank SubscribeRank @default(DEFAULT)
-  money Money
-  level Int
-  rank Rank @default(MOUSSE)
+  money         Money
+  level         Int
+  rank          Rank          @default(MOUSSE)
+  skills        Skill[]
+  pet           Pets[]
+  Players       Players[]
 }
-
 
 model Players {
-  uuid String @id @map("_id")
-  playerFS PlayerFS?
+  uuid     String    @id @map("_id")
+  playerFS PlayerFS? @relation(fields: [playerFSUuid], references: [uuid])
+  playerFSUuid String?
 
-  user User @relation(fields: [userId], references: [uuid]
-  userId String @unique
+  user         User    @relation(fields: [userId], references: [uuid])
+  userId       String  @unique
 }
 
+model Pets {
+  uuid       String  @id @map("_id")
+  name       String
+  race       Race    @default(PARROT)
+  variant    Int
+  connection Int
+  skills     Skill[]
+
+  playerFS   PlayerFS? @relation(fields: [playerFSId], references: [uuid])
+  playerFSId String?   @unique
+}
+
+model Skill {
+  uuid        String @id @map("_id")
+  name        String
+  description String
+  imageUrl    String
+
+  pet   Pets?   @relation(fields: [petId], references: [uuid])
+  petId String? @unique
+
+  playerFS   PlayerFS? @relation(fields: [playerFSId], references: [uuid])
+  playerFSId String?   @unique
+}
+
+// NON MODELS
+
+enum Race {
+  PARROT
+  MONKEY
+}
 
 type Money {
-  gold Int
+  gold   Int
   custom Int
 }
+
 enum SubscribeRank {
   PASSPIRATE
   DEFAULT
@@ -63,14 +87,4 @@ enum SubscribeRank {
 enum Rank {
   MOUSSE
   PIRATE
-}
-
-model Skill{
-  uuid String @id @map("_id")
-  name String
-  description String
-  imageUrl String
-
-  pet Pets @relation(fields: [petId], references: [uuid])
-  petId String @unique
 }
