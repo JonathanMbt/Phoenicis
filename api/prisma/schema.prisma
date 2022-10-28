@@ -10,3 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Pets{
+  uuid String @id @map("_id")
+  name String
+  race Race @default(PARROT)
+  variant Int
+  connection Int
+  skills Skill[]
+}
+
+enum Race{
+  PARROT
+  MONKEY
+}
+
+model Skill{
+  uuid String @id @map("_id")
+  name String
+  description String
+  imageUrl String
+
+  pet Pets @relation(fields: [petId], references: [uuid])
+  petId String @unique
+}
