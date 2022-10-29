@@ -31,7 +31,8 @@
       "@japa/preset-adonis/build/adonis-typings",
       "@wahyubucil/adonis-prisma",
       "@adonisjs/auth",
-      "@adonisjs/redis"
+      "@adonisjs/redis",
+      "@adonisjs/bouncer"
     ]
   }
 }

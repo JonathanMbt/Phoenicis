@@ -20,6 +20,7 @@ model User {
   createdAt DateTime @default(now())
   pseudo    String
   players   Players?
+  policy Policies @default(USER)
 }
 
 model PlayerFS {
@@ -88,4 +89,10 @@ enum SubscribeRank {
 enum Rank {
   MOUSSE
   PIRATE
+}
+
+enum Policies {
+  USER
+  ADMIN
+  UNITY
 }

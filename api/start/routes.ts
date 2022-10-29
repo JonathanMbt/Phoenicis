@@ -24,6 +24,7 @@ import Route from '@ioc:Adonis/Core/Route';
 Route.group(() => {
   Route.group(() => {
     Route.post('/login', 'LoginController.login');
+
     Route.post('/register', 'LoginController.register');
   }).prefix('/auth');
 }).prefix('/api');
@@ -37,6 +38,15 @@ Route.group(() => {
   // USERS ROUTES
   Route.group(() => {
     Route.get('/', 'UsersController.readUsers');
+    Route.get('/:uuid', 'UsersController.readUser').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'UsersController.createUser');
+
+    Route.patch('/:uuid', 'UsersController.updateUser').where('uuid', Route.matchers.uuid());
+    Route.patch('/me', 'UsersController.updateAuthUser');
+
+    Route.delete('/me', 'UsersController.deleteAuthUser');
+    Route.delete('/:uuid', 'UsersController.deleteUser').where('uuid', Route.matchers.uuid());
   }).prefix('/users');
 })
   .prefix('/api')

@@ -1,3 +1,4 @@
+import { prisma } from '@ioc:Adonis/Addons/Prisma';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { User } from '@prisma/client';
 import LoginUserValidator from '../../Validators/LoginUserValidator';
@@ -14,7 +15,11 @@ export default class LoginController {
 
   public async register(httpContext: HttpContextContract): Promise<{ token: string }> {
     const { default: UsersController } = await import('./UsersController');
-    const user = await new UsersController().createUser(httpContext);
+
+    const admin = await prisma.user.findUnique({ where: { mail: 'admin@phoenicis-game.com' } });
+    const adminAuth = httpContext.bouncer.forUser(admin);
+
+    const user = await new UsersController().createUser(httpContext, adminAuth);
 
     const token = await httpContext.auth.use('api').login(user, { expiresIn: '1h' });
     return { token: token.token };
