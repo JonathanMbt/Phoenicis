@@ -2,7 +2,7 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", "build/**"],
-      "dependsOn": ["^build", "api#db:generate", "db:postgenerate"],
+      "dependsOn": ["^build", "db:generate"],
       "inputs": ["**/**/*.tsx", "**/**/*.ts"]
     },
     "lint": {

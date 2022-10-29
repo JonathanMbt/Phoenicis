@@ -11,7 +11,7 @@
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache --quiet './src/**/*.{js,jsx,ts,tsx}'",
     "lint:prettier": "prettier --cache --write './src/**/*.{js,jsx,ts,tsx}'",
-    "db:postgenerate": "npm ci"
+    "db:generate": "npm ci"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
