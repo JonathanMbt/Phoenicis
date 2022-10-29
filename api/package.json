@@ -6,10 +6,9 @@
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
     "start": "node server.js",
-    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "lint": "yarn run lint:prettier && yarn run lint:eslint",
     "lint:eslint": "eslint --cache --quiet './**/*/*.{js,jsx,ts,tsx}'",
-    "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'",
-    "db:generate": "prisma generate; npm ci"
+    "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": ["plugin:adonis/typescriptApp", "prettier"],
