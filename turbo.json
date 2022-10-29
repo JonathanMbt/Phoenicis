@@ -2,7 +2,7 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", "build/**"],
-      "dependsOn": ["^build", "api#db:generate", "api#db:reinstall"],
+      "dependsOn": ["^build", "api#db:generate", "db:postgenerate"],
       "inputs": ["**/**/*.tsx", "**/**/*.ts"]
     },
     "lint": {
@@ -13,6 +13,9 @@
       "cache": false
     },
     "db:generate": {
+      "cache": false
+    },
+    "db:postgenerate": {
       "cache": false
     }
   }
