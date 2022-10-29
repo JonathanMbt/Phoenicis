@@ -37,8 +37,6 @@ jobs:
           key: Phoenicis-build-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             Phoenicis-build-${{ github.ref_name }}
-            Phoenicis-build-
-            Phoenicis-
 
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: Install dependencies
