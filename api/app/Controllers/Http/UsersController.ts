@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { prisma } from '@ioc:Adonis/Addons/Prisma';
 import { User } from '@prisma/client';
-import CreateUserValidator from 'App/Validators/CreateUserValidator';
+import CreateUserValidator from '../../Validators/CreateUserValidator';
 import { v4 as uuidv4 } from 'uuid';
 import Hash from '@ioc:Adonis/Core/Hash';
 

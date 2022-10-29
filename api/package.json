@@ -8,8 +8,7 @@
     "start": "node server.js",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache --quiet './**/*/*.{js,jsx,ts,tsx}'",
-    "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'",
-    "pre": "npm ci"
+    "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [

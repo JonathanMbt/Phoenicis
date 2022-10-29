@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { User } from '@prisma/client';
-import LoginUserValidator from 'App/Validators/LoginUserValidator';
+import LoginUserValidator from '../../Validators/LoginUserValidator';
 
 export default class LoginController {
   public async login({ request, response, auth }: HttpContextContract): Promise<{ token: string }> {
@@ -13,7 +13,7 @@ export default class LoginController {
   }
 
   public async register(httpContext: HttpContextContract): Promise<{ token: string }> {
-    const { default: UsersController } = await import('App/Controllers/Http/UsersController');
+    const { default: UsersController } = await import('./UsersController');
     const user = await new UsersController().createUser(httpContext);
 
     const token = await httpContext.auth.use('api').login(user, { expiresIn: '1h' });

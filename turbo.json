@@ -2,16 +2,13 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", "build/**"],
-      "dependsOn": ["^build", "api#pre"],
+      "dependsOn": ["^build"],
       "inputs": ["**/**/*.tsx", "**/**/*.ts"]
     },
     "lint": {
       "outputs": []
     },
     "dev": {
-      "cache": false
-    },
-    "pre": {
       "cache": false
     }
   }
