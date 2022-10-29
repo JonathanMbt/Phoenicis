@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "turbo run dev --parallel",
-    "build": "turbo run build",
+    "build": "turbo run build --parallel",
     "build:www": "turbo run build --filter=www...",
     "build:api": "turbo run build --filter=api...",
     "lint": "turbo run lint",

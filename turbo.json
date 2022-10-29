@@ -1,14 +1,14 @@
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "build/**"],
       "dependsOn": ["^build", "db:generate"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["**/**/*.tsx", "**/**/*.ts"]
     },
     "lint": {
       "outputs": []
     },
-    "dev":{
+    "dev": {
       "dependsOn": ["db:generate"],
       "cache": false
     },
