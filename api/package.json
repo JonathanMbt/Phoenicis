@@ -9,7 +9,7 @@
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache --quiet './**/*/*.{js,jsx,ts,tsx}'",
     "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'",
-    "db:generate": "prisma generate; npm ci"
+    "db:generate": "prisma generate; npm update @prisma/client"
   },
   "eslintConfig": {
     "extends": ["plugin:adonis/typescriptApp", "prettier"],
