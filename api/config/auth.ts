@@ -5,7 +5,7 @@
  * file.
  */
 
-import type { AuthConfig } from '@ioc:Adonis/Addons/Auth'
+import type { AuthConfig } from '@ioc:Adonis/Addons/Auth';
 
 /*
 |--------------------------------------------------------------------------
@@ -50,9 +50,8 @@ const authConfig: AuthConfig = {
       */
       tokenProvider: {
         type: 'api',
-        driver: 'database',
-        table: 'api_tokens',
-        foreignKey: 'user_id',
+        driver: 'redis',
+        redisConnection: 'local',
       },
 
       provider: {
@@ -63,6 +62,6 @@ const authConfig: AuthConfig = {
       },
     },
   },
-}
+};
 
-export default authConfig
+export default authConfig;

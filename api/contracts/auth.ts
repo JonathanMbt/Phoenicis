@@ -4,8 +4,9 @@
  * Feel free to let us know via PR, if you find something broken in this
  * file.
  */
-import { PrismaAuthProviderContract, PrismaAuthProviderConfig } from '@ioc:Adonis/Addons/Prisma'
-import { User } from '@prisma/client'
+
+import { PrismaAuthProviderConfig, PrismaAuthProviderContract } from '@ioc:Adonis/Addons/Prisma';
+import { User } from '@prisma/client';
 
 declare module '@ioc:Adonis/Addons/Auth' {
   /*
@@ -34,9 +35,9 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     user: {
-      implementation: PrismaAuthProviderContract<User>
-      config: PrismaAuthProviderConfig<User>
-    }
+      implementation: PrismaAuthProviderContract<User>;
+      config: PrismaAuthProviderConfig<User>;
+    };
   }
 
   /*
@@ -65,9 +66,9 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     api: {
-      implementation: OATGuardContract<'user', 'api'>
-      config: OATGuardConfig<'user'>
-      client: OATClientContract<'user'>
-    }
+      implementation: OATGuardContract<'user', 'api'>;
+      config: OATGuardConfig<'user'>;
+      client: OATClientContract<'user'>;
+    };
   }
 }

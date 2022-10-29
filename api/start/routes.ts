@@ -18,8 +18,26 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', async () => {
-  return { hello: 'world' }
+// PUBLIC ROUTES
+Route.group(() => {
+  Route.group(() => {
+    Route.post('/login', 'LoginController.login');
+    Route.post('/register', 'LoginController.register');
+  }).prefix('/auth');
+}).prefix('/api');
+
+// ROUTES THAT NEED AUTHENTIFICATION
+Route.group(() => {
+  Route.group(() => {
+    Route.get('/me', 'LoginController.me');
+  }).prefix('/auth');
+
+  // USERS ROUTES
+  Route.group(() => {
+    Route.get('/', 'UsersController.index');
+  }).prefix('/users');
 })
+  .prefix('/api')
+  .middleware('auth');

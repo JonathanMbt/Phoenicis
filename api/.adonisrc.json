@@ -21,7 +21,8 @@
     "./providers/AppProvider",
     "@adonisjs/core",
     "@wahyubucil/adonis-prisma",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/redis"
   ],
   "aceProviders": [
     "@adonisjs/repl"
