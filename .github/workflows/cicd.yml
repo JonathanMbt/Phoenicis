@@ -34,8 +34,9 @@ jobs:
           path: |
             **/node_modules
             ~/.npm
-          key: Phoenicis-build-${{ hashFiles('**/package-lock.json') }}
+          key: Phoenicis-build-${{ github.ref_name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
+            Phoenicis-build-${{ github.ref_name }}
             Phoenicis-build-
             Phoenicis-
 
