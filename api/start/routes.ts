@@ -36,7 +36,7 @@ Route.group(() => {
 
   // USERS ROUTES
   Route.group(() => {
-    Route.get('/', 'UsersController.index');
+    Route.get('/', 'UsersController.readUsers');
   }).prefix('/users');
 })
   .prefix('/api')

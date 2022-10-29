@@ -2,14 +2,18 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**"],
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "db:generate"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "lint": {
       "outputs": []
     },
     "dev":{
-        "cache": false
+      "dependsOn": ["db:generate"],
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
     }
   }
 }

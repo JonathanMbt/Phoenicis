@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Hash from '@ioc:Adonis/Core/Hash';
 
 export default class UsersController {
-  public async index({ response }: HttpContextContract): Promise<User[]> {
+  public async readUsers({ response }: HttpContextContract): Promise<User[]> {
     const users = await prisma.user.findMany();
 
     response.status(200);
