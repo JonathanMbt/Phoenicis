@@ -12,13 +12,22 @@
     "pre": "npm ci"
   },
   "eslintConfig": {
-    "extends": ["plugin:adonis/typescriptApp", "prettier"],
-    "plugins": ["prettier"],
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
     "rules": {
-      "prettier/prettier": ["error"]
+      "prettier/prettier": [
+        "error"
+      ]
     }
   },
-  "eslintIgnore": ["build"],
+  "eslintIgnore": [
+    "build"
+  ],
   "prettier": {
     "trailingComma": "es5",
     "semi": true,
