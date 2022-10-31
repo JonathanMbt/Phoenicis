@@ -35,6 +35,11 @@ export default class UsersController {
         pseudo: payload.pseudo,
         mail: payload.email,
         password: await Hash.make(payload.password),
+        players: {
+          create: {
+            uuid: uuidv4(),
+          },
+        },
       },
     });
 

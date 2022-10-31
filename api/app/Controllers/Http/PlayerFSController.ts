@@ -25,7 +25,7 @@ export default class PlayerFSController {
   }
 
   public async createPlayerFS({ request, bouncer }: HttpContextContract): Promise<PlayerFS> {
-    await bouncer.with('DefaultAccessPolicy').authorize('admin');
+    await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const payload = await request.validate(CreatePlayerFSValidator);
 

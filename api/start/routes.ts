@@ -66,6 +66,18 @@ Route.group(() => {
       Route.matchers.uuid()
     );
   }).prefix('/playersFS');
+
+  //PLAYER ROUTES
+  Route.group(() => {
+    Route.get('/', 'PlayerController.readPlayers');
+    Route.get('/:uuid', 'PlayerController.readPlayer').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'PlayerController.createPlayer');
+
+    Route.patch('/:uuid', 'PlayerController.updatePlayer').where('uuid', Route.matchers.uuid());
+
+    Route.delete('/:uuid', 'PlayerController.deletePlayer').where('uuid', Route.matchers.uuid());
+  }).prefix('/players');
 })
   .prefix('/api')
   .middleware('auth')
