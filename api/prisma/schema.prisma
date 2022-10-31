@@ -28,17 +28,17 @@ model PlayerFS {
   token         String
   subscribeRank SubscribeRank @default(DEFAULT)
   money         Money
-  level         Int
+  level         Int @default(0)
   rank          Rank          @default(MOUSSE)
   skills        Skill[]
   pet           Pets[]
-  Players       Players[]
+  Players       Players?
 }
 
 model Players {
   uuid     String    @id @map("_id")
   playerFS PlayerFS? @relation(fields: [playerFSUuid], references: [uuid])
-  playerFSUuid String?
+  playerFSUuid String? @unique
 
   user         User    @relation(fields: [userId], references: [uuid])
   userId       String  @unique
@@ -77,8 +77,8 @@ enum Race {
 }
 
 type Money {
-  gold   Int
-  custom Int
+  gold   Int @default(0)
+  custom Int @default(0)
 }
 
 enum SubscribeRank {

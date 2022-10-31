@@ -9,6 +9,10 @@
       "outputs": []
     },
     "dev": {
+      "dependsOn": ["api#pre:dev"],
+      "cache": false
+    },
+    "pre:dev": {
       "cache": false
     }
   }

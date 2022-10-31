@@ -9,17 +9,16 @@ import UpdateAuthUserValidator from 'api/app/Validators/UpdateAuthUserValidator'
 import { ActionsAuthorizerContract } from '@ioc:Adonis/Addons/Bouncer';
 
 export default class UsersController {
-  public async readUsers({ response, bouncer }: HttpContextContract): Promise<User[]> {
+  public async readUsers({ bouncer }: HttpContextContract): Promise<User[]> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const users = await prisma.user.findMany();
 
-    response.status(200);
     return users;
   }
 
   public async createUser(
-    { request, response, bouncer }: HttpContextContract,
+    { request, bouncer }: HttpContextContract,
     adminBouncer?: ActionsAuthorizerContract<User | null>
   ): Promise<User> {
     if (adminBouncer === undefined) {
@@ -39,33 +38,35 @@ export default class UsersController {
       },
     });
 
-    response.status(201);
     return userCreated;
   }
 
-  public async readUser({ request, response }: HttpContextContract): Promise<User | null> {
+  public async readUser({ request, bouncer }: HttpContextContract): Promise<User | null> {
+    await bouncer.with('DefaultAccessPolicy').authorize('admin');
+
     const uuid = request.param('uuid', '');
 
     const user = await prisma.user.findUnique({
       where: {
         uuid,
       },
+      include: {
+        players: {
+          select: {
+            playerFS: {
+              select: {
+                uuid,
+              },
+            },
+          },
+        },
+      },
     });
-
-    response.status(404);
-
-    if (user) {
-      response.status(200);
-    }
 
     return user;
   }
 
-  public async updateUser({
-    request,
-    response,
-    bouncer,
-  }: HttpContextContract): Promise<User | null> {
+  public async updateUser({ request, bouncer }: HttpContextContract): Promise<User | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -80,13 +81,11 @@ export default class UsersController {
       },
     });
 
-    response.status(200);
     return user;
   }
 
   public async updateAuthUser({
     request,
-    response,
     bouncer,
     auth,
   }: HttpContextContract): Promise<User | null> {
@@ -102,15 +101,10 @@ export default class UsersController {
       where: { uuid: auth.user?.uuid },
     });
 
-    response.status(200);
     return user;
   }
 
-  public async deleteAuthUser({
-    response,
-    bouncer,
-    auth,
-  }: HttpContextContract): Promise<User | null> {
+  public async deleteAuthUser({ bouncer, auth }: HttpContextContract): Promise<User | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('user');
 
     const user = await prisma.user.delete({
@@ -119,15 +113,10 @@ export default class UsersController {
       },
     });
 
-    response.status(200);
     return user;
   }
 
-  public async deleteUser({
-    request,
-    response,
-    bouncer,
-  }: HttpContextContract): Promise<User | null> {
+  public async deleteUser({ request, bouncer }: HttpContextContract): Promise<User | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const uuid = request.param('uuid', '');
@@ -138,7 +127,6 @@ export default class UsersController {
       },
     });
 
-    response.status(200);
     return user;
   }
 }

@@ -27,7 +27,9 @@ Route.group(() => {
 
     Route.post('/register', 'LoginController.register');
   }).prefix('/auth');
-}).prefix('/api');
+})
+  .prefix('/api')
+  .middleware('logRequest');
 
 // ROUTES THAT NEED AUTHENTIFICATION
 Route.group(() => {
@@ -48,6 +50,23 @@ Route.group(() => {
     Route.delete('/me', 'UsersController.deleteAuthUser');
     Route.delete('/:uuid', 'UsersController.deleteUser').where('uuid', Route.matchers.uuid());
   }).prefix('/users');
+
+  //PLAYERFS ROUTES
+  Route.group(() => {
+    Route.get('/', 'PlayerFSController.readPlayersFS');
+    Route.get('/:uuid', 'PlayerFSController.readPlayerFS').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'PlayerFSController.createPlayerFS');
+
+    Route.patch('/:uuid', 'PlayerFSController.updatePlayerFS').where('uuid', Route.matchers.uuid());
+
+    Route.delete('/me', 'PlayerFSController.deleteAuthPlayerFS');
+    Route.delete('/:uuid', 'PlayerFSController.deletePlayerFS').where(
+      'uuid',
+      Route.matchers.uuid()
+    );
+  }).prefix('/playersFS');
 })
   .prefix('/api')
-  .middleware('auth');
+  .middleware('auth')
+  .middleware('logRequest');
