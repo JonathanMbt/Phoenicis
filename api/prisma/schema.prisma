@@ -19,8 +19,9 @@ model User {
   rememberMeToken String?
   createdAt DateTime @default(now())
   pseudo    String
-  players   Players?
   policy Policies @default(USER)
+
+  players   Players?
 }
 
 model PlayerFS {
@@ -30,13 +31,18 @@ model PlayerFS {
   money         Money
   level         Int @default(0)
   rank          Rank          @default(MOUSSE)
-  skills        Skill[]
-  pet           Pets[]
+
+  skills        Skill[] @relation(fields: [skillsId], references: [uuid])
+  skillsId      String[]
+
+  pets          Pets[]
+
   Players       Players?
 }
 
 model Players {
   uuid     String    @id @map("_id")
+
   playerFS PlayerFS? @relation(fields: [playerFSUuid], references: [uuid])
   playerFSUuid String? @unique
 
@@ -49,8 +55,10 @@ model Pets {
   name       String
   race       Race    @default(PARROT)
   variant    Int
-  connection Int
-  skills     Skill[]
+  connection Int @default(0)
+
+  skills     Skill[] @relation(fields: [skillsId], references: [uuid])
+  skillsId String[]
 
   playerFS   PlayerFS? @relation(fields: [playerFSId], references: [uuid])
   playerFSId String?   @unique
@@ -62,11 +70,11 @@ model Skill {
   description String
   imageUrl    String
 
-  pet   Pets?   @relation(fields: [petId], references: [uuid])
-  petId String? @unique
+  pet   Pets[]   @relation(fields: [petId], references: [uuid])
+  petId String[]
 
-  playerFS   PlayerFS? @relation(fields: [playerFSId], references: [uuid])
-  playerFSId String?   @unique
+  playerFS   PlayerFS[] @relation(fields: [playerFSId], references: [uuid])
+  playerFSId String[]  @unique
 }
 
 // NON MODELS

@@ -21,11 +21,8 @@ export default class UsersController {
     { request, bouncer }: HttpContextContract,
     adminBouncer?: ActionsAuthorizerContract<User | null>
   ): Promise<User> {
-    if (adminBouncer === undefined) {
-      await bouncer.with('DefaultAccessPolicy').authorize('admin');
-    } else {
-      await adminBouncer.with('DefaultAccessPolicy').authorize('admin');
-    }
+    const payloadBouncer = adminBouncer ? adminBouncer : bouncer;
+    await payloadBouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const payload = await request.validate(CreateUserValidator);
 
