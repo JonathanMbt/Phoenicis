@@ -1,0 +1,12 @@
+
+> @prisma/client@1.0.0 build
+> prisma generate && tsc
+
+Prisma schema loaded from schema.prisma
+
+✔ Generated Prisma Client (4.5.0 | library) to ./node_modules/@prisma/client in 64ms
+You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
+```
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+```

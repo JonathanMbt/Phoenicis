@@ -25,14 +25,12 @@
   "homepage": "https://github.com/JonathanMbt/Phoenicis#readme",
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
-    "turbo": "^1.6.1",
-    "@prisma/client": "npm:abbrev@1",
-    "prisma": "npm:abbrev@1"
+    "turbo": "^1.6.1"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "workspaces": ["www", "api"]
+  "workspaces": ["www", "api", "libs/*"]
 }
