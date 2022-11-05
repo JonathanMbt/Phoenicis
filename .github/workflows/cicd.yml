@@ -44,7 +44,7 @@ jobs:
         run: npm run lint
 
       - name: Clear dependencies
-        run: rm -Rf node_modules && npm run clean
+        run: npm run clean && rm -Rf node_modules
 
       - name: Deploy to Docker Host
         if: ${{ github.ref_name == 'main' }}
