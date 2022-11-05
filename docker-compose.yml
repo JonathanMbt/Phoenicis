@@ -5,10 +5,10 @@ services:
     image: react-nginx # custom image
     container_name: phoenicis-www
     volumes:
-      - ./dist/www:/usr/share/nginx/html
+      - ./build/www:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "127.0.0.1:5001:80"
+      - "5001:80"
     networks:
       - home
     restart: unless-stopped
@@ -29,13 +29,13 @@ services:
       traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
 
   phoenicis-api:
-    image: node:fermium-alpine
+    image: adonis-node # custom image
     container_name: phoenicis-api
     volumes:
-      - ./dist/api:/usr/src/api
+      - ./build/api/:/app
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "5002:80"
+      - "5002:3333"
     networks:
       - home
       - db
