@@ -4,7 +4,7 @@ services:
   phoenicis-www:
     build:
       context: .
-      dockerfile: ./www/Dockerfile
+      dockerfile: ./build/www/Dockerfile
     container_name: phoenicis-www
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -32,7 +32,7 @@ services:
   phoenicis-api:
     build:
       context: .
-      dockerfile: ./api/Dockerfile
+      dockerfile: ./build/api/Dockerfile
     container_name: phoenicis-api
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
