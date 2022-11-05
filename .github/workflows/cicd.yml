@@ -48,7 +48,7 @@ jobs:
 
       - name: Deploy to Docker Host
         if: ${{ github.ref_name == 'main' }}
-        uses: JonathanMbt/docker-deployment-action@v5.5
+        uses: JonathanMbt/docker-deployment-action@v5.6
         with:
           remote_docker_host: jonathan@${{ secrets.SSH_HOST }}
           remote_docker_port: 8822
