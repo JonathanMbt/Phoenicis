@@ -21,7 +21,7 @@ export default class LoginController {
 
     const user = await new UsersController().createUser(httpContext, adminAuth);
 
-    const token = await httpContext.auth.use('api').login(user, { expiresIn: '1h' });
+    const token = await httpContext.auth.use('api').loginViaId(user.uuid, { expiresIn: '1h' });
     return { token: token.token };
   }
 

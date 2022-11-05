@@ -1,9 +1,9 @@
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", "build/**"],
+      "outputs": ["dist/**"],
       "dependsOn": ["^build"],
-      "inputs": ["**/**/*.tsx", "**/**/*.ts"]
+      "inputs": ["**/**/*.tsx", "**/**/*.ts", "**/**/*.json"]
     },
     "lint": {
       "outputs": []
@@ -12,7 +12,7 @@
       "dependsOn": ["^build"],
       "cache": false
     },
-    "pre:dev": {
+    "pre": {
       "cache": false
     }
   }

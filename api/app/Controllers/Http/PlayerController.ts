@@ -1,20 +1,22 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { prisma } from '@ioc:Adonis/Addons/Prisma';
-import { Players } from '@prisma/client';
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { Phoenicis } from '@phoenicis/core';
 import { v4 as uuidv4 } from 'uuid';
 import CreatePlayerValidator from '../../Validators/CreatePlayerValidator';
 import UpdatePlayerValidator from '../../Validators/UpdatePlayerValidator';
 
 export default class PlayerController {
-  public async readPlayers({ bouncer }: HttpContextContract): Promise<Players[]> {
+  public async readPlayers({ bouncer }: HttpContextContract): Promise<Phoenicis.Players> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
-    const players = await prisma.players.findMany();
+    const players = await prisma.players.findMany({
+      select: Phoenicis.DefaultPlayersSelect
+    });
 
     return players;
   }
 
-  public async createPlayer({ request, bouncer }: HttpContextContract): Promise<Players> {
+  public async createPlayer({ request, bouncer }: HttpContextContract): Promise<Phoenicis.Player> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const payload = await request.validate(CreatePlayerValidator);
@@ -24,12 +26,13 @@ export default class PlayerController {
         uuid: uuidv4(),
         ...payload,
       },
+      select: Phoenicis.DefaultPlayersSelect
     });
 
     return playerCreated;
   }
 
-  public async readPlayer({ request, bouncer }: HttpContextContract): Promise<Players | null> {
+  public async readPlayer({ request, bouncer }: HttpContextContract): Promise<Phoenicis.Player | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -38,12 +41,13 @@ export default class PlayerController {
       where: {
         uuid,
       },
+      select: Phoenicis.DefaultPlayersSelect
     });
 
     return player;
   }
 
-  public async updatePlayer({ request, bouncer }: HttpContextContract): Promise<Players | null> {
+  public async updatePlayer({ request, bouncer }: HttpContextContract): Promise<Phoenicis.Player | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const uuid = request.param('uuid', '');
@@ -56,12 +60,13 @@ export default class PlayerController {
       data: {
         ...payload,
       },
+      select: Phoenicis.DefaultPlayersSelect
     });
 
     return player;
   }
 
-  public async deletePlayer({ request, bouncer }: HttpContextContract): Promise<Players | null> {
+  public async deletePlayer({ request, bouncer }: HttpContextContract): Promise<Phoenicis.Player | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('admin');
 
     const uuid = request.param('uuid', '');
@@ -70,6 +75,7 @@ export default class PlayerController {
       where: {
         uuid,
       },
+      select: Phoenicis.DefaultPlayersSelect
     });
 
     return player;

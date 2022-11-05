@@ -9,9 +9,11 @@
     "build": "turbo run build",
     "build:www": "turbo run build --filter=www...",
     "build:api": "turbo run build --filter=api...",
+    "build:deps": "turbo run build --filter=./libs/*",
     "lint": "turbo run lint",
     "dev:www": "turbo run dev --filter=www",
-    "dev:api": "turbo run dev --filter=api"
+    "dev:api": "turbo run dev --filter=api",
+    "postinstall": "turbo run pre"
   },
   "repository": {
     "type": "git",

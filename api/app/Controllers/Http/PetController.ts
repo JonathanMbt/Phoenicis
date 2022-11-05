@@ -1,20 +1,22 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { prisma } from '@ioc:Adonis/Addons/Prisma';
-import { Pets } from '@prisma/client';
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { ForgottenShores } from '@phoenicis/core';
 import { v4 as uuidv4 } from 'uuid';
 import CreatePetValidator from '../../Validators/CreatePetValidator';
 import UpdatePetValidator from '../../Validators/UpdatePetValidator';
 
 export default class PetController {
-  public async readPets({ bouncer }: HttpContextContract): Promise<Pets[]> {
+  public async readPets({ bouncer }: HttpContextContract): Promise<ForgottenShores.Pets> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
-    const pets = await prisma.pets.findMany();
+    const pets = await prisma.pets.findMany({
+      select: ForgottenShores.DefaultPetSelect
+    });
 
     return pets;
   }
 
-  public async createPet({ request, bouncer }: HttpContextContract): Promise<Pets> {
+  public async createPet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const payload = await request.validate(CreatePetValidator);
@@ -24,12 +26,13 @@ export default class PetController {
         uuid: uuidv4(),
         ...payload,
       },
+      select: ForgottenShores.DefaultPetSelect
     });
 
     return petCreated;
   }
 
-  public async readPet({ request, bouncer }: HttpContextContract): Promise<Pets | null> {
+  public async readPet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -38,12 +41,13 @@ export default class PetController {
       where: {
         uuid,
       },
+      select: ForgottenShores.DefaultPetSelect
     });
 
     return pet;
   }
 
-  public async updatePet({ request, bouncer }: HttpContextContract): Promise<Pets | null> {
+  public async updatePet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -56,12 +60,13 @@ export default class PetController {
       data: {
         ...payload,
       },
+      select: ForgottenShores.DefaultPetSelect
     });
 
     return pet;
   }
 
-  public async deletePet({ request, bouncer }: HttpContextContract): Promise<Pets | null> {
+  public async deletePet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -70,6 +75,7 @@ export default class PetController {
       where: {
         uuid,
       },
+      select: ForgottenShores.DefaultPetSelect
     });
 
     return pet;
