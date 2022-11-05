@@ -3,13 +3,17 @@
     "build": {
       "outputs": ["dist/**"],
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["**/**/*.tsx", "**/**/*.ts", "**/**/*.json"]
     },
     "lint": {
       "outputs": []
     },
-    "dev":{
-        "cache": false
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "pre": {
+      "cache": false
     }
   }
 }

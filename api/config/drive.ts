@@ -5,9 +5,9 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { driveConfig } from '@adonisjs/core/build/config'
-import Application from '@ioc:Adonis/Core/Application'
+import Env from '@ioc:Adonis/Core/Env';
+import { driveConfig } from '@adonisjs/core/build/config';
+import Application from '@ioc:Adonis/Core/Application';
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ export default driveConfig({
       | storage services that has inbuilt capabilities to serve files.
       |
       */
-      serveFiles: true,
+      serveFiles: false,
 
       /*
       |--------------------------------------------------------------------------
@@ -146,4 +146,4 @@ export default driveConfig({
     //   usingUniformAcl: false,
     // },
   },
-})
+});

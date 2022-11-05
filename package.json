@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
     "build:www": "turbo run build --filter=www...",
     "build:api": "turbo run build --filter=api...",
-    "lint": "turbo run lint"
+    "build:deps": "turbo run build --filter=./libs/*",
+    "lint": "turbo run lint",
+    "dev:www": "turbo run dev --filter=www",
+    "dev:api": "turbo run dev --filter=api",
+    "postinstall": "turbo run pre"
   },
   "repository": {
     "type": "git",
@@ -29,5 +34,5 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "workspaces": ["www", "api"]
+  "workspaces": ["www", "api", "libs/*"]
 }

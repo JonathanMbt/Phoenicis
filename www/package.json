@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --emptyOutDir",
     "preview": "vite preview",
     "commit": "cz",
     "lint": "npm run lint:prettier && npm run lint:eslint",
-    "lint:eslint": "npx eslint --cache --quiet './src/**/*.{js,jsx,ts,tsx}'",
-    "lint:prettier": "npx prettier --cache --write './src/**/*.{js,jsx,ts,tsx}'"
+    "lint:eslint": "eslint --cache --quiet './src/**/*.{js,jsx,ts,tsx}'",
+    "lint:prettier": "prettier --cache --write './src/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

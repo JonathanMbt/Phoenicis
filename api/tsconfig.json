@@ -3,8 +3,8 @@
   "include": ["**/*"],
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
-    "outDir": "build",
-    "rootDir": "./",
+    "rootDir": ".",
+    "outDir": "../dist/api",
     "sourceMap": true,
     "paths": {
       "App/*": ["./app/*"],
@@ -12,6 +12,14 @@
       "Contracts/*": ["./contracts/*"],
       "Database/*": ["./database/*"]
     },
-    "types": ["@adonisjs/core", "@adonisjs/repl", "@japa/preset-adonis/build/adonis-typings"]
+    "types": [
+      "@adonisjs/core",
+      "@adonisjs/repl",
+      "@japa/preset-adonis/build/adonis-typings",
+      "@wahyubucil/adonis-prisma",
+      "@adonisjs/auth",
+      "@adonisjs/redis",
+      "@adonisjs/bouncer"
+    ]
   }
 }

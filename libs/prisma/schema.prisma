@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// MODELS FORGOTTEN SHORES
+
+model User {
+  uuid      String   @id @map("_id")
+  mail      String @unique
+  password  String
+  rememberMeToken String?
+  createdAt DateTime @default(now())
+  pseudo    String
+  policy Policies @default(USER)
+
+  players   Players?
+}
+
+model PlayerFS {
+  uuid          String        @id @map("_id")
+  token         String
+  subscribeRank SubscribeRank @default(DEFAULT)
+  money         Money
+  level         Int @default(0)
+  rank          Rank          @default(MOUSSE)
+
+  skills        Skill[] @relation(fields: [skillsId], references: [uuid])
+  skillsId      String[]
+
+  pets          Pets[]
+
+  Players       Players?
+}
+
+model Players {
+  uuid     String    @id @map("_id")
+
+  playerFS PlayerFS? @relation(fields: [playerFSUuid], references: [uuid])
+  playerFSUuid String? @unique
+
+  user         User    @relation(fields: [userId], references: [uuid])
+  userId       String  @unique
+}
+
+model Pets {
+  uuid       String  @id @map("_id")
+  name       String
+  race       Race    @default(PARROT)
+  variant    Int
+  connection Int @default(0)
+
+  skills     Skill[] @relation(fields: [skillsId], references: [uuid])
+  skillsId String[]
+
+  playerFS   PlayerFS? @relation(fields: [playerFSId], references: [uuid])
+  playerFSId String?   @unique
+}
+
+model Skill {
+  uuid        String @id @map("_id")
+  name        String
+  description String
+  imageUrl    String
+
+  pet   Pets[]   @relation(fields: [petId], references: [uuid])
+  petId String[]
+
+  playerFS   PlayerFS[] @relation(fields: [playerFSId], references: [uuid])
+  playerFSId String[]  @unique
+}
+
+// NON MODELS
+
+enum Race {
+  PARROT
+  MONKEY
+}
+
+type Money {
+  gold   Int @default(0)
+  custom Int @default(0)
+}
+
+enum SubscribeRank {
+  PASSPIRATE
+  DEFAULT
+}
+
+enum Rank {
+  MOUSSE
+  PIRATE
+}
+
+enum Policies {
+  USER
+  ADMIN
+  UNITY
+}

@@ -18,8 +18,67 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from '@ioc:Adonis/Core/Route';
 
-Route.get('/', async () => {
-  return { hello: 'world' }
+// PUBLIC ROUTES
+Route.group(() => {
+  Route.group(() => {
+    Route.post('/login', 'LoginController.login');
+
+    Route.post('/register', 'LoginController.register');
+  }).prefix('/auth');
 })
+  .prefix('/api')
+  .middleware('logRequest');
+
+// ROUTES THAT NEED AUTHENTIFICATION
+Route.group(() => {
+  Route.group(() => {
+    Route.get('/me', 'LoginController.me');
+  }).prefix('/auth');
+
+  // USERS ROUTES
+  Route.group(() => {
+    Route.get('/', 'UsersController.readUsers');
+    Route.get('/:uuid', 'UsersController.readUser').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'UsersController.createUser');
+
+    Route.patch('/:uuid', 'UsersController.updateUser').where('uuid', Route.matchers.uuid());
+    Route.patch('/me', 'UsersController.updateAuthUser');
+
+    Route.delete('/me', 'UsersController.deleteAuthUser');
+    Route.delete('/:uuid', 'UsersController.deleteUser').where('uuid', Route.matchers.uuid());
+  }).prefix('/users');
+
+  //PLAYERFS ROUTES
+  Route.group(() => {
+    Route.get('/', 'PlayerFSController.readPlayersFS');
+    Route.get('/:uuid', 'PlayerFSController.readPlayerFS').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'PlayerFSController.createPlayerFS');
+
+    Route.patch('/:uuid', 'PlayerFSController.updatePlayerFS').where('uuid', Route.matchers.uuid());
+
+    Route.delete('/me', 'PlayerFSController.deleteAuthPlayerFS');
+    Route.delete('/:uuid', 'PlayerFSController.deletePlayerFS').where(
+      'uuid',
+      Route.matchers.uuid()
+    );
+  }).prefix('/playersFS');
+
+  //PLAYER ROUTES
+  Route.group(() => {
+    Route.get('/', 'PlayerController.readPlayers');
+    Route.get('/:uuid', 'PlayerController.readPlayer').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'PlayerController.createPlayer');
+
+    Route.patch('/:uuid', 'PlayerController.updatePlayer').where('uuid', Route.matchers.uuid());
+
+    Route.delete('/:uuid', 'PlayerController.deletePlayer').where('uuid', Route.matchers.uuid());
+  }).prefix('/players');
+})
+  .prefix('/api')
+  .middleware('auth')
+  .middleware('logRequest');

@@ -5,10 +5,10 @@ services:
     image: react-nginx # custom image
     container_name: phoenicis-www
     volumes:
-      - ./build:/usr/share/nginx/html
+      - ./build/www:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "127.0.0.1:5001:80"
+      - "5001:80"
     networks:
       - home
     restart: unless-stopped
@@ -28,6 +28,36 @@ services:
       traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) || Host(`www.phoenicis-game.com`)
       traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
 
+  phoenicis-api:
+    image: adonis-node # custom image
+    container_name: phoenicis-api
+    volumes:
+      - ./build/api/:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "5002:3333"
+    networks:
+      - home
+      - db
+   restart: unless-stopped
+   labels:
+     traefik.enable: true
+
+    traefik.http.middlewares.force-secure.redirectscheme.scheme: https
+    traefik.http.middlewares.force-secure.redirectscheme.permanent: true
+
+    traefik.http.routers.phoenicis.entrypoints: websecure
+    traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`) && Path('/api') || Host(`www.phoenicis-game.com`) && Path('/api')
+    traefik.http.routers.phoenicis.tls: true
+    traefik.http.routers.phoenicis.tls.certresolver: production
+
+    traefik.http.routers.phoenicis-insecure.entrypoints: web
+    traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) && Path('/api') || Host(`www.phoenicis-game.com`) && Path('/api')
+    traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
+
+
 networks:
   home:
+    external: true
+  db:
     external: true
