@@ -1,4 +1,4 @@
-name: CI
+name: CICD
 
 on: 
   push:
@@ -43,11 +43,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Build
-        run: npm run build --if-present
-  
+      - name: Clear dependencies
+        run: rm -Rf node_modules
+
       - name: Deploy to Docker Host
-        if: ${{ github.ref_name	== 'main' }}
+        if: ${{ github.ref_name == 'main' }}
         uses: JonathanMbt/docker-deployment-action@v5.5
         with:
           remote_docker_host: jonathan@${{ secrets.SSH_HOST }}
@@ -56,8 +56,8 @@ jobs:
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           deployment_mode: docker-compose
           copy_stack_file: true
-          deploy_path: ~/phoenicis/build
-          build_path: ./dist/*
+          deploy_path: ~/phoenicis
+          build_path: .
           stack_file_name: docker-compose.yml
           args: up -d
           pull_images_first: false

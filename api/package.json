@@ -10,7 +10,7 @@
     "lint:eslint": "eslint --cache --quiet './**/*/*.{js,jsx,ts,tsx}'",
     "lint:prettier": "prettier --cache --write './**/*/*.{js,jsx,ts,tsx}'",
     "pre:dev": "npm ci",
-    "app": "npm ci --production && node server.js"
+    "clean": "rm -Rf dist"
   },
   "eslintConfig": {
     "extends": [

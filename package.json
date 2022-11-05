@@ -13,7 +13,8 @@
     "lint": "turbo run lint",
     "dev:www": "turbo run dev --filter=www",
     "dev:api": "turbo run dev --filter=api",
-    "postinstall": "turbo run pre"
+    "postinstall": "turbo run pre",
+    "clean": "turbo run clean"
   },
   "repository": {
     "type": "git",
