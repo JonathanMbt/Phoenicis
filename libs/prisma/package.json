@@ -7,7 +7,7 @@
   "scripts": {
     "build": "prisma generate && tsc",
     "pre": "prisma generate",
-    "clean": "rm -Rf dist"
+    "clean": "rm -Rf dist && rm -Rf node_modules"
   },
   "author": "",
   "license": "ISC",

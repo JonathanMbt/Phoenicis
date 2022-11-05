@@ -11,7 +11,7 @@
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache --quiet './src/**/*.{js,jsx,ts,tsx}'",
     "lint:prettier": "prettier --cache --write './src/**/*.{js,jsx,ts,tsx}'",
-    "clean": "rm -Rf dist"
+    "clean": "rm -Rf dist && rm -Rf node_modules"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

@@ -44,7 +44,7 @@ jobs:
         run: npm run lint
 
       - name: Clear dependencies
-        run: rm -Rf node_modules
+        run: rm -Rf node_modules && npm run clean
 
       - name: Deploy to Docker Host
         if: ${{ github.ref_name == 'main' }}
@@ -60,4 +60,4 @@ jobs:
           build_path: ./*
           stack_file_name: docker-compose.yml
           args: up -d
-          pull_images_first: false
+          pull_images_first: true

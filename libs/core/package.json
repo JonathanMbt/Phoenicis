@@ -6,7 +6,7 @@
   "types": "./dist/index",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -Rf dist"
+    "clean": "rm -Rf dist && rm -Rf node_modules"
   },
   "devDependencies": {
     "typescript":"~4.6"
