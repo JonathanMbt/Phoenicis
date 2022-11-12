@@ -55,6 +55,15 @@ services:
     environment:
       - REDIS_HOST=fs_redis
       - MONGO_HOST=fs_mongo
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 networks:
   home:
