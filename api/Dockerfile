@@ -1,45 +1,49 @@
-FROM node:alpine AS builder
+FROM node:gallium-alpine3.16 AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
 WORKDIR /app
 
 RUN \
     npm i -g turbo
-COPY . .
+COPY ./build .
 RUN turbo prune --scope=api --docker
 
 
 
 
-FROM node:alpine AS installer
+FROM node:gallium-alpine3.16 AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
 WORKDIR /app
 
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
+COPY ./build/turbo.json ./turbo.json
 RUN \
-    npm ci
+    npm i
 COPY --from=builder /app/out/full .
-COPY turbo.json turbo.json
+
 RUN \
     npm run build:api
 
 
 
 
-FROM node:alpine AS runner
+FROM node:gallium-alpine3.16 AS runner
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
 WORKDIR /app
-
-RUN addgroup --system --gid 1001 node
-RUN adduser --system --uid 1001 node
-
-USER node
 
 COPY --from=installer /app .
 
 WORKDIR /app/api/dist
 
-RUN \
-    npm ci --production
+RUN cp ../.env ./
+
+#RUN \
+#    npm ci --production
 
 CMD ["node", "server.js"]
