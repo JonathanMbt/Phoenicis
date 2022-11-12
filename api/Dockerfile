@@ -43,7 +43,8 @@ WORKDIR /app/api/dist
 
 RUN cp ../.env ./
 
+WORKDIR /app
 #RUN \
 #    npm ci --production
 
-CMD ["node", "server.js"]
+CMD ["node", "./api/dist/server.js"]
