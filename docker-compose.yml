@@ -30,7 +30,6 @@ services:
     build:
       context: .
       dockerfile: ./build/api/Dockerfile
-    container_name: phoenicis-api
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
