@@ -43,14 +43,14 @@ services:
 
         traefik.docker.network: home
 
-        traefik.http.routers.phoenicis.entrypoints: websecure
-        traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
-        traefik.http.routers.phoenicis.tls: true
-        traefik.http.routers.phoenicis.tls.certresolver: production
+        traefik.http.routers.phoenicis-api.entrypoints: websecure
+        traefik.http.routers.phoenicis-api.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
+        traefik.http.routers.phoenicis-api.tls: true
+        traefik.http.routers.phoenicis-api.tls.certresolver: production
 
-        traefik.http.routers.phoenicis-insecure.entrypoints: web
-        traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
-        traefik.http.routers.phoenicis-insecure.middlewares: force-secure@file
+        traefik.http.routers.phoenicis-api-insecure.entrypoints: web
+        traefik.http.routers.phoenicis-api-insecure.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
+        traefik.http.routers.phoenicis-api-insecure.middlewares: force-secure@file
     environment:
       - REDIS_HOST=fs_redis
       - MONGO_HOST=fs_mongo
