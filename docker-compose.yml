@@ -33,7 +33,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "5000:3333"
+      - "6000-6002:3333"
     networks:
       - home
       - db
