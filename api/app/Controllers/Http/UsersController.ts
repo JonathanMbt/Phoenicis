@@ -5,8 +5,8 @@ import { Phoenicis } from '@phoenicis/core'
 import CreateUserValidator from '../../Validators/CreateUserValidator';
 import { v4 as uuidv4 } from 'uuid';
 import Hash from '@ioc:Adonis/Core/Hash';
-import UpdateUserValidator from 'api/app/Validators/UpdateUserValidator';
-import UpdateAuthUserValidator from 'api/app/Validators/UpdateAuthUserValidator';
+import UpdateUserValidator from '../../Validators/UpdateUserValidator';
+import UpdateAuthUserValidator from '../../Validators/UpdateAuthUserValidator';
 import { ActionsAuthorizerContract } from '@ioc:Adonis/Addons/Bouncer';
 
 export default class UsersController {

@@ -16,9 +16,6 @@ services:
     labels:
       traefik.enable: true
 
-      traefik.http.middlewares.force-secure.redirectscheme.scheme: https
-      traefik.http.middlewares.force-secure.redirectscheme.permanent: true
-
       traefik.http.routers.phoenicis.entrypoints: websecure
       traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`) || Host(`www.phoenicis-game.com`)
       traefik.http.routers.phoenicis.tls: true
@@ -27,7 +24,7 @@ services:
 
       traefik.http.routers.phoenicis-insecure.entrypoints: web
       traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) || Host(`www.phoenicis-game.com`)
-      traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
+      traefik.http.routers.phoenicis-insecure.middlewares: force-secure@file
 
   phoenicis-api:
     build:
@@ -45,18 +42,28 @@ services:
     labels:
         traefik.enable: true
 
-        traefik.http.middlewares.force-secure.redirectscheme.scheme: https
-        traefik.http.middlewares.force-secure.redirectscheme.permanent: true
+        traefik.docker.network: home
 
         traefik.http.routers.phoenicis.entrypoints: websecure
-        traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`) && Path('/api') || Host(`www.phoenicis-game.com`) && Path('/api')
+        traefik.http.routers.phoenicis.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
         traefik.http.routers.phoenicis.tls: true
         traefik.http.routers.phoenicis.tls.certresolver: production
 
         traefik.http.routers.phoenicis-insecure.entrypoints: web
-        traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) && Path('/api') || Host(`www.phoenicis-game.com`) && Path('/api')
-        traefik.http.routers.phoenicis-insecure.middlewares: force-secure, myfail2ban@file
-
+        traefik.http.routers.phoenicis-insecure.rule: Host(`phoenicis-game.com`) && PathPrefix(`/api`) || Host(`www.phoenicis-game.com`) && PathPrefix(`/api`)
+        traefik.http.routers.phoenicis-insecure.middlewares: force-secure@file
+    environment:
+      - REDIS_HOST=fs_redis
+      - MONGO_HOST=fs_mongo
+    deploy:
+      mode: replicated
+      replicas: 2
+      endpoint_mode: vip
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
 networks:
   home:

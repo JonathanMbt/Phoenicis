@@ -59,5 +59,5 @@ jobs:
           deploy_path: ~/phoenicis
           build_path: ./*
           stack_file_name: docker-compose.yml
-          args: up -d
+          args: up -d --build
           pull_images_first: true
