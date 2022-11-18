@@ -9,6 +9,8 @@ jobs:
     withLfs: false
     force: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !DependencyFinishedTrigger {}
   jobDependencies:
   - jobName: CICD
     requireSuccessful: true
