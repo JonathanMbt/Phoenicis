@@ -18,3 +18,22 @@ jobs:
   cpuRequirement: 250
   memoryRequirement: 256
   timeout: 3600
+stepTemplates:
+- name: CICD
+  steps:
+  - !CheckoutStep
+    name: Checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: Lint
+    runInContainer: true
+    image: node:gallium-alpine3.16
+    interpreter: !DefaultInterpreter
+      commands:
+      - npm ci
+      - npm run lint
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
