@@ -12,6 +12,10 @@ jobs:
   triggers:
   - !BranchUpdateTrigger {}
   - !TagCreateTrigger {}
+  jobDependencies:
+  - jobName: CICD
+    requireSuccessful: true
+    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -32,16 +36,13 @@ jobs:
     image: node:gallium-alpine3.16
     interpreter: !DefaultInterpreter
       commands:
+      - ls
       - npm ci
       - npm run lint
     useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
-  jobDependencies:
-  - jobName: Push-to-github
-    requireSuccessful: true
-    artifacts: '**'
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
