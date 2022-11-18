@@ -10,7 +10,7 @@ export default class PetController {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const pets = await prisma.pets.findMany({
-      select: ForgottenShores.DefaultPetSelect
+      select: ForgottenShores.DefaultPetSelect,
     });
 
     return pets;
@@ -26,13 +26,16 @@ export default class PetController {
         uuid: uuidv4(),
         ...payload,
       },
-      select: ForgottenShores.DefaultPetSelect
+      select: ForgottenShores.DefaultPetSelect,
     });
 
     return petCreated;
   }
 
-  public async readPet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
+  public async readPet({
+    request,
+    bouncer,
+  }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -41,17 +44,20 @@ export default class PetController {
       where: {
         uuid,
       },
-      select: ForgottenShores.DefaultPetSelect
+      select: ForgottenShores.DefaultPetSelect,
     });
 
     return pet;
   }
 
-  public async updatePet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
+  public async updatePet({
+    request,
+    bouncer,
+  }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
-    const payload = await request.validate(UpdatePetValidator);
+    const { skillsId, ...payload } = await request.validate(UpdatePetValidator);
 
     const pet = await prisma.pets.update({
       where: {
@@ -60,13 +66,16 @@ export default class PetController {
       data: {
         ...payload,
       },
-      select: ForgottenShores.DefaultPetSelect
+      select: ForgottenShores.DefaultPetSelect,
     });
 
     return pet;
   }
 
-  public async deletePet({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
+  public async deletePet({
+    request,
+    bouncer,
+  }: HttpContextContract): Promise<ForgottenShores.Pet | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const uuid = request.param('uuid', '');
@@ -75,7 +84,7 @@ export default class PetController {
       where: {
         uuid,
       },
-      select: ForgottenShores.DefaultPetSelect
+      select: ForgottenShores.DefaultPetSelect,
     });
 
     return pet;

@@ -3,6 +3,7 @@ import { prisma } from '@ioc:Adonis/Addons/Prisma';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { ForgottenShores } from '@phoenicis/core';
 import { User } from '@prisma/client';
+import { toBeAdded, toBeDeleted } from 'api/app/Functions/prismaHelpers';
 import { v4 as uuidv4 } from 'uuid';
 import CreatePlayerFSValidator from '../../Validators/CreatePlayerFValidator';
 import UpdatePlayerFSValidator from '../../Validators/UpdatePlayerFValidator';
@@ -12,13 +13,16 @@ export default class PlayerFSController {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const players = await prisma.playerFS.findMany({
-      select: ForgottenShores.DefaultPlayerFSSelect
+      select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
     return players;
   }
 
-  public async createPlayerFS({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.PlayerFS> {
+  public async createPlayerFS({
+    request,
+    bouncer,
+  }: HttpContextContract): Promise<ForgottenShores.PlayerFS> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
     const payload = await request.validate(CreatePlayerFSValidator);
@@ -45,32 +49,50 @@ export default class PlayerFSController {
             }
           : undefined,
       },
-      select: ForgottenShores.DefaultPlayerFSSelect
+      select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
     return playerCreate;
   }
 
-  public async readPlayerFS({ request }: HttpContextContract): Promise<ForgottenShores.PlayerFS | null> {
+  public async readPlayerFS({
+    request,
+    bouncer,
+  }: HttpContextContract): Promise<ForgottenShores.PlayerFS | null> {
+    await bouncer.with('DefaultAccessPolicy').authorize('unity');
+
     const uuid = request.param('uuid', '');
 
     const player = await prisma.playerFS.findUnique({
       where: {
         uuid,
       },
-      select: ForgottenShores.DefaultPlayerFSSelect
+      select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
     return player;
   }
 
-  public async updatePlayerFS({ request, bouncer }: HttpContextContract): Promise<ForgottenShores.PlayerFS | null> {
+  public async updatePlayerFS({
+    request,
+    bouncer,
+    playerFS,
+  }: HttpContextContract): Promise<ForgottenShores.PlayerFS | null> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
+    if (playerFS === null) return null;
 
     const uuid = request.param('uuid', '');
     const payload = await request.validate(UpdatePlayerFSValidator);
 
-    const { user, ...prismaPayload } = payload;
+    const { user, skills, pets, ...prismaPayload } = payload;
+
+    const toBeDeletedSkills = skills ? toBeDeleted(playerFS.skills, skills) : undefined;
+
+    const toBeAddedSkills = skills ? toBeAdded(playerFS.skills, skills) : undefined;
+
+    const toBeDeletedPets = pets ? toBeDeleted(playerFS.pets, pets) : undefined;
+
+    const toBeAddedPets = pets ? toBeAdded(playerFS.pets, pets) : undefined;
 
     const player = await prisma.playerFS.update({
       data: {
@@ -84,17 +106,27 @@ export default class PlayerFSController {
               },
             }
           : undefined,
+        skills: {
+          connect: toBeAddedSkills,
+          disconnect: toBeDeletedSkills,
+        },
+        pets: {
+          connect: toBeAddedPets,
+          disconnect: toBeDeletedPets,
+        },
       },
       where: {
         uuid,
       },
-      select: ForgottenShores.DefaultPlayerFSSelect
+      select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
     return player;
   }
 
-  public async deleteAuthPlayerFS(httpContext: HttpContextContract): Promise<ForgottenShores.PlayerFS | null> {
+  public async deleteAuthPlayerFS(
+    httpContext: HttpContextContract
+  ): Promise<ForgottenShores.PlayerFS | null> {
     await httpContext.bouncer.with('DefaultAccessPolicy').authorize('user');
 
     const admin = await prisma.user.findUnique({ where: { mail: 'admin@phoenicis-game.com' } });
@@ -104,7 +136,7 @@ export default class PlayerFSController {
       where: {
         userId: httpContext.auth.user?.uuid,
       },
-      select: {...ForgottenShores.DefaultPlayerFSSelect, playerFS: {select: {uuid: true}}}
+      select: { ...ForgottenShores.DefaultPlayerFSSelect, playerFS: { select: { uuid: true } } },
     });
 
     httpContext.params['uuid'] = playerUuid?.playerFS?.uuid;
@@ -128,7 +160,7 @@ export default class PlayerFSController {
       where: {
         uuid,
       },
-      select: ForgottenShores.DefaultPlayerFSSelect
+      select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
     return player;

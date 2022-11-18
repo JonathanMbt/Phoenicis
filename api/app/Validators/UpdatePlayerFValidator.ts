@@ -33,7 +33,13 @@ export default class UpdatePlayerFSValidator {
     }),
     level: schema.number.optional(),
     rank: schema.enum.optional(Object.values(Rank)),
-    user: schema.string.optional({ escape: true }, [rules.uuid()]),
+    user: schema.string.optional({ escape: true }, [rules.uuid({ version: 4 })]),
+    skills: schema.array
+      .optional()
+      .members(schema.string({ escape: true }, [rules.uuid({ version: 4 })])),
+    pets: schema.array
+      .optional()
+      .members(schema.string({ escape: true }, [rules.uuid({ version: 4 })])),
   });
 
   /**

@@ -65,7 +65,9 @@ Route.group(() => {
       'uuid',
       Route.matchers.uuid()
     );
-  }).prefix('/playersFS');
+  })
+    .prefix('/playersFS')
+    .middleware('playerFS');
 
   //PLAYER ROUTES
   Route.group(() => {

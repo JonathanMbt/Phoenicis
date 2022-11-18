@@ -41,4 +41,5 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')]);
 Server.middleware.registerNamed({
   auth: () => import('../app/Middleware/Auth'),
   logRequest: () => import('../app/Middleware/LogRequest'),
+  playerFS: () => import('../app/Middleware/UserPlayerF'),
 });

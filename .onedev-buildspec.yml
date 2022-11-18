@@ -1,0 +1,20 @@
+version: 18
+jobs:
+- name: Push-to-github
+  steps:
+  - !PushRepository
+    name: push
+    remoteUrl: https://github.com/JonathanMbt/Phoenicis
+    passwordSecret: Github-Mirror-Token
+    withLfs: false
+    force: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  - !TagCreateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
