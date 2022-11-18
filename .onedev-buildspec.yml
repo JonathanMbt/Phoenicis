@@ -34,7 +34,7 @@ jobs:
       commands:
       - npm ci
       - npm run lint
-    useTTY: false
+    useTTY: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger {}
