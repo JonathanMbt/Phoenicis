@@ -33,6 +33,7 @@ jobs:
     image: node:gallium-alpine3.16
     interpreter: !DefaultInterpreter
       commands:
+      - apk add --no-cache libc6-compat
       - npm ci
       - npm run lint
     useTTY: true
