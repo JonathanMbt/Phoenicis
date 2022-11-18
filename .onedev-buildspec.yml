@@ -9,9 +9,6 @@ jobs:
     withLfs: false
     force: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  triggers:
-  - !BranchUpdateTrigger {}
-  - !TagCreateTrigger {}
   jobDependencies:
   - jobName: CICD
     requireSuccessful: true
@@ -36,7 +33,6 @@ jobs:
     image: node:gallium-alpine3.16
     interpreter: !DefaultInterpreter
       commands:
-      - npm i -g turbo
       - npm ci
       - npm run lint
     useTTY: true
