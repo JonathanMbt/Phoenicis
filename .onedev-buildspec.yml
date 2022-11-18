@@ -18,7 +18,6 @@ jobs:
   cpuRequirement: 250
   memoryRequirement: 256
   timeout: 3600
-stepTemplates:
 - name: CICD
   steps:
   - !CheckoutStep
@@ -37,3 +36,15 @@ stepTemplates:
       - npm run lint
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  jobDependencies:
+  - jobName: Push-to-github
+    requireSuccessful: true
+    artifacts: '**'
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
