@@ -1,0 +1,290 @@
+openapi: 3.0.3
+info:
+  title: Forgotten Shores API
+  version: 0.1.0
+servers:
+  - url: https://phoenicis-game.com/api
+tags:
+  - name: Auth
+  - name: Users
+  - name: PlayerFS
+paths:
+
+
+  /login:
+    post:
+      tags:
+        - Auth
+      responses:
+        200:
+          description: "Return token"
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Token'
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties: 
+                email: 
+                  type: string
+                  format: email
+                password:
+                  type: string
+
+
+  /register:
+    post:
+      tags:
+        - Auth
+      responses:
+        201:
+          description: "Return token"
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Token'
+      requestBody: 
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+
+
+  /me:
+    get:
+      tags:
+        - Auth
+      responses:
+
+
+  /users:
+    get:
+      tags:
+        - Users
+      responses:
+        200:
+          description: "Return all Users"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post: 
+      tags: 
+        - Users
+      responses:
+        201:
+          description: "Return created User"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+      requestBody:
+        required: true 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+
+
+  /users/{uuid}:
+    get:
+      tags:
+        - Users
+      responses:
+        200:
+          description: "Return uuid User"
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+      parameters:
+        - name: uuid
+          required: true
+          in: path
+    patch:
+      tags:
+        - Users
+      responses:
+        200:
+          description: "Update uuid User"
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+      requestBody: 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+    delete:
+      tags:
+        - Users
+      responses:
+        204:
+          description: "Delete uuid User"
+      parameters: 
+        - name: uuid
+          required: true
+          in: path
+
+
+  /users/me:
+    patch: 
+      tags:
+        - Users
+      responses:
+        200:
+          description: "Update auth User"
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody: 
+        content: 
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/UpdateAuthUser'
+    delete:
+      tags:
+        - Users
+      responses: 
+        204:
+          description: "Delete auth User"         
+
+
+  /playerFS:
+    get:
+      tags:
+        - PlayerFS
+      responses:
+        200:
+          description: "Return all PlayerFS"
+          content: 
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/PlayerFS'
+      requestBody: 
+        content:
+          application/json:
+            schema: 
+              type: array
+              items: 
+                $ref: ''
+
+components:
+  schemas:
+    User:
+      type: object
+      properties: 
+        uuid:
+          type: string
+        pseudo:
+          type: string
+        mail:
+          type: string
+          format: email
+        policy:
+          type: string
+          enum: 
+            - USER
+            - UNITY
+            - ADMIN
+        players:
+          type: object
+          properties: 
+            playerFSUuid:
+              type: string
+    CreateUser:
+      type: object
+      required: 
+        - pseudo
+        - email
+        - password
+      properties: 
+        pseudo:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    UpdateUser:
+      type: object
+      properties:
+        pseudo: 
+          type: string
+        players:
+          type: object
+          required: 
+            - playerFSUuid
+          properties: 
+            playerFSUuid: 
+              type: string
+        policy:
+          type: string
+          enum: 
+            - USER
+            - UNITY
+            - ADMIN
+    UpdateAuthUser:
+      type: object
+      properties: 
+        mail:
+          type: string
+          format: email
+        pseudo:
+          type: string
+        password:
+          type: string
+    Token:
+      type: object
+      properties: 
+        token: 
+          type: string
+
+
+    PlayerFS:
+      type: object
+      properties:
+        uuid: 
+          type: string
+        subscribeRank:
+          type: string
+          enum:
+            - PASSPIRATE
+            - DEFAULT
+        money:
+          type: object
+          properties: 
+            gold: 
+              type: number
+            custom:
+              type: number
+        level:
+          type: number
+        rank:
+          type: string
+          enum: 
+            - MOUSSE
+            - PIRATE
+        skills:
+          type: array
+          items:
+            type: string
+        pets:
+          $ref: ''
+        Players:
+          type: object
+          properties: 
+            uuid:
+              type: string
+

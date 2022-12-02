@@ -2,8 +2,8 @@ import { prisma } from '@ioc:Adonis/Addons/Prisma';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { Phoenicis } from '@phoenicis/core';
 import { v4 as uuidv4 } from 'uuid';
-import CreatePlayerValidator from '../../Validators/CreatePlayerValidator';
-import UpdatePlayerValidator from '../../Validators/UpdatePlayerValidator';
+import CreatePlayerValidator from '../../Validators/Players/CreatePlayerValidator';
+import UpdatePlayerValidator from '../../Validators/Players/UpdatePlayerValidator';
 
 export default class PlayerController {
   public async readPlayers({ bouncer }: HttpContextContract): Promise<Phoenicis.Players> {

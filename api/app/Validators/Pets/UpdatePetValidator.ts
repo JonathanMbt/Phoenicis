@@ -27,7 +27,7 @@ export default class UpdatePetValidator {
     name: schema.string.optional({ escape: true }),
     variant: schema.number.optional(),
     connection: schema.number.optional(),
-    skillsId: schema.array.optional().members(schema.string({ escape: true }, [rules.uuid()])),
+    skills: schema.array.optional().members(schema.string({ escape: true }, [rules.uuid()])),
     playerFSId: schema.string.optional({ escape: true }, [rules.uuid()]),
   });
 

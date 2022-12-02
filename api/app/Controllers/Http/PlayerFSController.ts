@@ -5,8 +5,8 @@ import { ForgottenShores } from '@phoenicis/core';
 import { User } from '@prisma/client';
 import { toBeAdded, toBeDeleted } from 'api/app/Functions/prismaHelpers';
 import { v4 as uuidv4 } from 'uuid';
-import CreatePlayerFSValidator from '../../Validators/CreatePlayerFValidator';
-import UpdatePlayerFSValidator from '../../Validators/UpdatePlayerFValidator';
+import CreatePlayerFSValidator from '../../Validators/PlayerFS/CreatePlayerFValidator';
+import UpdatePlayerFSValidator from '../../Validators/PlayerFS/UpdatePlayerFValidator';
 
 export default class PlayerFSController {
   public async readPlayersFS({ bouncer }: HttpContextContract): Promise<ForgottenShores.PlayersFS> {
