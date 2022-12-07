@@ -30,25 +30,23 @@ Route.group(() => {
 
     Route.post('/register', 'LoginController.register');
   }).prefix('/auth');
+
+  // DOC ROUTES
+  Route.group(() => {
+    Route.get('/', async () => {
+      return AutoSwagger.ui('/api/doc/swagger');
+    });
+
+    Route.get('/swagger', async () => {
+      const genSwagger = GenSwagger.getInstance(
+        Route.toJSON() as { [domain: string]: AdonisRoute[] },
+        swagger
+      );
+      return await genSwagger.writeFile();
+    });
+  }).prefix('/doc');
 })
   .prefix('/api')
-  .middleware('logRequest');
-
-// DOC ROUTES
-Route.group(() => {
-  Route.get('/', async () => {
-    return AutoSwagger.ui('/doc/swagger');
-  });
-
-  Route.get('/swagger', async () => {
-    const genSwagger = GenSwagger.getInstance(
-      Route.toJSON() as { [domain: string]: AdonisRoute[] },
-      swagger
-    );
-    return await genSwagger.writeFile();
-  });
-})
-  .prefix('/doc')
   .middleware('logRequest');
 
 // ROUTES THAT NEED AUTHENTIFICATION
