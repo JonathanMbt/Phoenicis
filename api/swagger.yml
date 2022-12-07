@@ -1,0 +1,413 @@
+openapi: "3.0.0"
+info:
+  title: "Forgotten Shores API"
+  version: "1.0.0"
+components:
+  responses:
+    Forbidden:
+      description: "Access token is missing or invalid"
+    Accepted:
+      description: "The request was accepted"
+    Created:
+      description: "The resource has been created"
+    NotFound:
+      description: "The resource has been created"
+    NotAcceptable:
+      description: "The resource has been created"
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+  schemas:
+    Any:
+      description: "Any JSON object not defined as schema"
+paths:
+  /api/auth/login:
+    post:
+      summary: " (LoginController::login)"
+      description: ""
+      parameters: []
+      tags:
+        - "AUTH"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "object"
+              example:
+                token: "string"
+          description: "OK: {\"token\" : \"string\"}"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example: {}
+  /api/auth/register:
+    post:
+      summary: " (LoginController::register)"
+      description: ""
+      parameters: []
+      tags:
+        - "AUTH"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json: {}
+      security: []
+      requestBody:
+        content:
+          application/json: {}
+  /api/auth/me:
+    get:
+      summary: " (LoginController::me)"
+      description: ""
+      parameters: []
+      tags:
+        - "AUTH"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+  /api/users:
+    get:
+      summary: " (UsersController::readUsers)"
+      description: ""
+      parameters: []
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    post:
+      summary: " (UsersController::createUser)"
+      description: ""
+      parameters: []
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+  /api/users/{uuid}:
+    get:
+      summary: " (UsersController::readUser)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    patch:
+      summary: " (UsersController::updateUser)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+    delete:
+      summary: " (UsersController::deleteUser)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+  /api/users/me:
+    patch:
+      summary: " (UsersController::updateAuthUser)"
+      description: ""
+      parameters: []
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+    delete:
+      summary: " (UsersController::deleteAuthUser)"
+      description: ""
+      parameters: []
+      tags:
+        - "USERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+  /api/playersFS:
+    get:
+      summary: " (PlayerFSController::readPlayersFS)"
+      description: ""
+      parameters: []
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    post:
+      summary: " (PlayerFSController::createPlayerFS)"
+      description: ""
+      parameters: []
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+  /api/playersFS/{uuid}:
+    get:
+      summary: " (PlayerFSController::readPlayerFS)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    patch:
+      summary: " (PlayerFSController::updatePlayerFS)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+    delete:
+      summary: " (PlayerFSController::deletePlayerFS)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+  /api/playersFS/me:
+    delete:
+      summary: " (PlayerFSController::deleteAuthPlayerFS)"
+      description: ""
+      parameters: []
+      tags:
+        - "PLAYERSFS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+  /api/players:
+    get:
+      summary: " (PlayerController::readPlayers)"
+      description: ""
+      parameters: []
+      tags:
+        - "PLAYERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    post:
+      summary: " (PlayerController::createPlayer)"
+      description: ""
+      parameters: []
+      tags:
+        - "PLAYERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+  /api/players/{uuid}:
+    get:
+      summary: " (PlayerController::readPlayer)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+    patch:
+      summary: " (PlayerController::updatePlayer)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+      requestBody:
+        content:
+          application/json: {}
+    delete:
+      summary: " (PlayerController::deletePlayer)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "uuid"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLAYERS"
+      responses:
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+      security:
+        - BearerAuth:
+            - "access"
+tags:
+  - name: "AUTH"
+    description: "Everything related to AUTH"
+  - name: "USERS"
+    description: "Everything related to USERS"
+  - name: "PLAYERSFS"
+    description: "Everything related to PLAYERSFS"
+  - name: "PLAYERS"
+    description: "Everything related to PLAYERS"

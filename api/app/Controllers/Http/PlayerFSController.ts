@@ -5,10 +5,14 @@ import { ForgottenShores } from '@phoenicis/core';
 import { User } from '@prisma/client';
 import { toBeAdded, toBeDeleted } from 'api/app/Functions/prismaHelpers';
 import { v4 as uuidv4 } from 'uuid';
-import CreatePlayerFSValidator from '../../Validators/PlayerFS/CreatePlayerFValidator';
-import UpdatePlayerFSValidator from '../../Validators/PlayerFS/UpdatePlayerFValidator';
+import { CreatePlayerFSValidator, UpdatePlayerFSValidator } from '../../Validators';
 
 export default class PlayerFSController {
+  /**
+   * @readPlayersFS
+   * @responseBody {DefaultPlayerFSSelect[]} 200
+   * @responseBody {null} 401 Unauthorized
+   */
   public async readPlayersFS({ bouncer }: HttpContextContract): Promise<ForgottenShores.PlayersFS> {
     await bouncer.with('DefaultAccessPolicy').authorize('unity');
 
@@ -19,6 +23,12 @@ export default class PlayerFSController {
     return players;
   }
 
+  /**
+   * @createPlayerFS
+   * @requestBody {CreatePlayerFSValidator} required
+   * @responseBody {DefaultPlayerFSSelect} 201
+   * @responseBody {null} 401 Unauthorized
+   */
   public async createPlayerFS({
     request,
     bouncer,
@@ -55,6 +65,11 @@ export default class PlayerFSController {
     return playerCreate;
   }
 
+  /**
+   * @readPlayerFS
+   * @responseBody {DefaultPlayerFSSelect} 200
+   * @responseBody {null} 401 Unauthorized
+   */
   public async readPlayerFS({
     request,
     bouncer,
@@ -73,6 +88,12 @@ export default class PlayerFSController {
     return player;
   }
 
+  /**
+   * @updatePlayerFS
+   * @requestBody {UpdatePlayerFSValidator} required
+   * @responseBody {DefaultPlayerFSSelect} 200
+   * @responseBody {null} 401 Unauthorized
+   */
   public async updatePlayerFS({
     request,
     bouncer,
@@ -124,9 +145,12 @@ export default class PlayerFSController {
     return player;
   }
 
-  public async deleteAuthPlayerFS(
-    httpContext: HttpContextContract
-  ): Promise<ForgottenShores.PlayerFS | null> {
+  /**
+   * @deleteAuthPlayerFS
+   * @responseBody {null} 204 Successful Operation
+   * @responseBody {null} 401 Unauthorized
+   */
+  public async deleteAuthPlayerFS(httpContext: HttpContextContract): Promise<null> {
     await httpContext.bouncer.with('DefaultAccessPolicy').authorize('user');
 
     const admin = await prisma.user.findUnique({ where: { mail: 'admin@phoenicis-game.com' } });
@@ -140,15 +164,20 @@ export default class PlayerFSController {
     });
 
     httpContext.params['uuid'] = playerUuid?.playerFS?.uuid;
-    const player = this.deletePlayerFS(httpContext, adminAuth);
+    await this.deletePlayerFS(httpContext, adminAuth);
 
-    return player;
+    return null;
   }
 
+  /**
+   * @deletePlayerFS
+   * @responseBody {null} 204
+   * @responseBody {null} 401 Unauthorized
+   */
   public async deletePlayerFS(
     { request, bouncer }: HttpContextContract,
     adminBouncer?: ActionsAuthorizerContract<User | null>
-  ): Promise<ForgottenShores.PlayerFS | null> {
+  ): Promise<null> {
     const dependantBouncer = adminBouncer ?? bouncer;
 
     await dependantBouncer.with('DefaultAccessPolicy').authorize('admin');
@@ -156,13 +185,13 @@ export default class PlayerFSController {
     const uuid = request.param('uuid', '');
     console.debug(uuid);
 
-    const player = await prisma.playerFS.delete({
+    await prisma.playerFS.delete({
       where: {
         uuid,
       },
       select: ForgottenShores.DefaultPlayerFSSelect,
     });
 
-    return player;
+    return null;
   }
 }

@@ -2,8 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { CustomMessages, rules, schema } from '@ioc:Adonis/Core/Validator';
 import { Rank, SubscribeRank } from '@prisma/client';
 
-export default class CreatePlayerFSValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export class CreatePlayerFSValidator {
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
