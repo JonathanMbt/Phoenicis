@@ -1,5 +1,5 @@
 import { GenOptions } from '@phoenicis/adonis-to-swagger';
-import { ValidatorSchema } from 'api/app/Providers/ValidatorSchema';
+import { ValidatorSchema } from '../Providers/ValidatorSchema';
 import { PrismaSchema } from './PrismaSchema';
 
 const swagger: GenOptions = {
