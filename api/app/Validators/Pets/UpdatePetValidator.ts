@@ -1,8 +1,8 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-export default class UpdatePetValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export class UpdatePetValidator {
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -27,7 +27,7 @@ export default class UpdatePetValidator {
     name: schema.string.optional({ escape: true }),
     variant: schema.number.optional(),
     connection: schema.number.optional(),
-    skillsId: schema.array.optional().members(schema.string({ escape: true }, [rules.uuid()])),
+    skills: schema.array.optional().members(schema.string({ escape: true }, [rules.uuid()])),
     playerFSId: schema.string.optional({ escape: true }, [rules.uuid()]),
   });
 

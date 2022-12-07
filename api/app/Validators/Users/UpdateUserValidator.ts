@@ -1,8 +1,9 @@
-import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import { CustomMessages, rules, schema } from '@ioc:Adonis/Core/Validator';
+import { Policies } from '@prisma/client';
 
-export default class CreatePlayerValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export class UpdateUserValidator {
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -24,8 +25,11 @@ export default class CreatePlayerValidator {
    *    ```
    */
   public schema = schema.create({
-    userId: schema.string({ escape: true }, [rules.uuid()]),
-    playerFSUuid: schema.string.optional({ escape: true }, [rules.uuid()]),
+    pseudo: schema.string.optional({ escape: true }),
+    players: schema.object.optional().members({
+      playerFSUuid: schema.string([rules.uuid({ version: '4' })]),
+    }),
+    policy: schema.enum.optional(Object.values(Policies)),
   });
 
   /**

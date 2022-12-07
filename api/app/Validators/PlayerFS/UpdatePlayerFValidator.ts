@@ -2,8 +2,8 @@ import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { Rank, SubscribeRank } from '@prisma/client';
 
-export default class UpdatePlayerFSValidator {
-  constructor(protected ctx: HttpContextContract) {}
+export class UpdatePlayerFSValidator {
+  constructor(protected ctx: HttpContextContract) { }
 
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -33,7 +33,13 @@ export default class UpdatePlayerFSValidator {
     }),
     level: schema.number.optional(),
     rank: schema.enum.optional(Object.values(Rank)),
-    user: schema.string.optional({ escape: true }, [rules.uuid()]),
+    user: schema.string.optional({ escape: true }, [rules.uuid({ version: 4 })]),
+    skills: schema.array
+      .optional()
+      .members(schema.string({ escape: true }, [rules.uuid({ version: 4 })])),
+    pets: schema.array
+      .optional()
+      .members(schema.string({ escape: true }, [rules.uuid({ version: 4 })])),
   });
 
   /**

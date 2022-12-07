@@ -1,0 +1,51 @@
+version: 18
+jobs:
+- name: Push-to-github
+  steps:
+  - !PushRepository
+    name: push
+    remoteUrl: https://github.com/JonathanMbt/Phoenicis
+    passwordSecret: Github-Mirror-Token
+    withLfs: false
+    force: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
+- name: CI
+  steps:
+  - !CheckoutStep
+    name: Checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: Lint
+    runInContainer: true
+    image: node:gallium-alpine3.16
+    interpreter: !DefaultInterpreter
+      commands:
+      - apk add --no-cache libc6-compat
+      - npm ci
+      - npm run lint
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
+- name: CD
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600

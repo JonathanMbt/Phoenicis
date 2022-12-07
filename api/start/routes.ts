@@ -19,6 +19,9 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
+import AutoSwagger from 'adonis-autoswagger';
+import { AdonisRoute, GenSwagger } from '@phoenicis/adonis-to-swagger';
+import swagger from '../app/Providers/swagger';
 
 // PUBLIC ROUTES
 Route.group(() => {
@@ -29,6 +32,23 @@ Route.group(() => {
   }).prefix('/auth');
 })
   .prefix('/api')
+  .middleware('logRequest');
+
+// DOC ROUTES
+Route.group(() => {
+  Route.get('/', async () => {
+    return AutoSwagger.ui('/doc/swagger');
+  });
+
+  Route.get('/swagger', async () => {
+    const genSwagger = GenSwagger.getInstance(
+      Route.toJSON() as { [domain: string]: AdonisRoute[] },
+      swagger
+    );
+    return await genSwagger.writeFile();
+  });
+})
+  .prefix('/doc')
   .middleware('logRequest');
 
 // ROUTES THAT NEED AUTHENTIFICATION
@@ -65,7 +85,9 @@ Route.group(() => {
       'uuid',
       Route.matchers.uuid()
     );
-  }).prefix('/playersFS');
+  })
+    .prefix('/playersFS')
+    .middleware('playerFS');
 
   //PLAYER ROUTES
   Route.group(() => {
@@ -78,6 +100,18 @@ Route.group(() => {
 
     Route.delete('/:uuid', 'PlayerController.deletePlayer').where('uuid', Route.matchers.uuid());
   }).prefix('/players');
+
+  //PET ROUTES
+  Route.group(() => {
+    Route.get('/', 'PetController.readPets');
+    Route.get('/:uuid', 'PetController.readPet').where('uuid', Route.matchers.uuid());
+
+    Route.post('/', 'PetController.createPet');
+
+    Route.patch('/:uuid', 'PetController.updatePet').where('uuid', Route.matchers.uuid());
+
+    Route.delete('/:uuid', 'PetController.deletePet').where('uuid', Route.matchers.uuid());
+  }).prefix('/pets');
 })
   .prefix('/api')
   .middleware('auth')
