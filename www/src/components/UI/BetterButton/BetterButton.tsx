@@ -1,21 +1,17 @@
-import { Box, Button, ButtonTypeMap } from '@mui/material';
+import { Box, Button, ButtonProps } from '@mui/material';
 import { FC, PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import BetterButtonStyles from './BetterButton.css';
 
 interface Props {
   to?: string;
-  color?: string;
-  onClick?: () => void;
   //eslint-disable-next-line
   FramerAnimation?: React.ComponentType<any>;
 }
 
-const BetterButton: FC<Props & ButtonTypeMap['props'] & PropsWithChildren> = ({
+const BetterButton: FC<Props & ButtonProps & PropsWithChildren> = ({
   children,
   to,
-  color,
-  onClick,
   FramerAnimation,
   ...props
 }) => {
@@ -23,24 +19,12 @@ const BetterButton: FC<Props & ButtonTypeMap['props'] & PropsWithChildren> = ({
     <>
       {FramerAnimation !== undefined ? (
         <FramerAnimation>
-          <BetterButtonStyles
-            {...props}
-            onClick={onClick}
-            sx={{ color: color ?? 'black' }}
-            component={to ? Link : Button}
-            to={to ?? ''}
-          >
+          <BetterButtonStyles {...props} component={to ? Link : Button} to={to ?? ''}>
             <Box>{children}</Box>
           </BetterButtonStyles>
         </FramerAnimation>
       ) : (
-        <BetterButtonStyles
-          {...props}
-          onClick={onClick}
-          sx={{ color: color ?? 'black' }}
-          component={to ? Link : Button}
-          to={to ?? ''}
-        >
+        <BetterButtonStyles {...props} component={to ? Link : Button} to={to ?? ''}>
           <Box>{children}</Box>
         </BetterButtonStyles>
       )}

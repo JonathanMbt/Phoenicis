@@ -5,9 +5,10 @@ import useArrowStyles from './Arrow.css';
 
 interface Props {
   orientation?: Orientation;
+  color?: string;
 }
 
-const Arrow: FC<Props> = ({ orientation }) => {
+const Arrow: FC<Props> = ({ orientation, color }) => {
   const calcDeg = useCallback((orientation: Orientation) => {
     switch (orientation) {
       case 'left':
@@ -21,7 +22,10 @@ const Arrow: FC<Props> = ({ orientation }) => {
     }
   }, []);
 
-  const { classes, cx } = useArrowStyles({ orientationDeg: calcDeg(orientation ?? 'down') });
+  const { classes, cx } = useArrowStyles({
+    orientationDeg: calcDeg(orientation ?? 'down'),
+    color: color ?? 'black',
+  });
 
   return (
     <>
