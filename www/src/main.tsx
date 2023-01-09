@@ -20,6 +20,7 @@ initI18n()
       </React.StrictMode>
     );
   })
+
   .catch((error) => {
     throw error;
   });

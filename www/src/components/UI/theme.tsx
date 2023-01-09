@@ -22,12 +22,12 @@ const phoenicisTheme = createTheme({
     subtitle1: paragraph,
     subtitle2: paragraph,
     body1: paragraph,
-    body2: paragraph,
+    body2: { ...paragraph, fontSize: 20 },
     button: {
       ...paragraph,
       fontSize: 20,
     },
-  },
+  }
 });
 
 export default phoenicisTheme;
