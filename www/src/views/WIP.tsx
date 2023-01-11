@@ -10,12 +10,11 @@ const WIP: FC = () => {
 
   return (
     <PageTransition initial={false} customVariants={{ displayed: { scale: 1 } }}>
-      {/* <FullScreen justifyContent="center">
+      {/*<FullScreen justifyContent="center">
         <Stack alignSelf="center" flexDirection="row">
           <Typography>{t('title.wip')}</Typography>
         </Stack>
       </FullScreen> */}
-      <Footer />
     </PageTransition>
   );
 };

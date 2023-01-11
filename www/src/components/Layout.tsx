@@ -1,8 +1,14 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
+import Footer from './Footer';
 
 const Layout: FC = () => {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <Footer />
+    </>);
+
 };
 
 export default Layout;
