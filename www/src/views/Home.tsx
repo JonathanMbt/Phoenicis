@@ -39,7 +39,7 @@ const Home: FC = () => {
             </Typography>
           </Stack>
           <Stack alignSelf="center" flexDirection="column" flexGrow={1} justifyContent="center">
-            {/* <Typography variant="body1">Sea of thieves VR</Typography> */}
+            <Typography variant="body1" color={phoenicisTheme.palette.overlayText.main}>Lorem Ipsum Piratus Coconuts</Typography>
           </Stack>
           <Stack alignSelf="center" flexDirection="column" flexGrow={0.75}>
             <BetterButton to="WIP" size="large" FramerAnimation={ComeAndGo}>

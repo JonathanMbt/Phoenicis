@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, IconButton, Stack, Typography } from '@mui/material';
+import { Button, Box, ButtonGroup, IconButton, Stack, Typography } from '@mui/material';
 import { FC, PropsWithChildren, useCallback } from 'react';
 import BetterButton from './UI/BetterButton/BetterButton';
 import i18next from 'i18next';
@@ -7,6 +7,7 @@ import FacebookOutlined from '@mui/icons-material/FacebookOutlined';
 import Instagram from '@mui/icons-material/Instagram';
 import Youtube from '@mui/icons-material/Youtube';
 import { Twitter } from '@mui/icons-material';
+import phoenicisTheme from './UI/theme';
 
 const Footer: FC = () => {
   const { t } = useTranslation('footer');
@@ -20,13 +21,13 @@ const Footer: FC = () => {
       flexDirection="row"
       height="15vh"
       minHeight="100px"
-      justifyContent={'space-between'}
-      sx={{ backgroundColor: '#D4CBBA' }}
+      sx={{ backgroundColor: '#182129' }}
       position="absolute"
       left="0"
       right="0"
       bottom="0"
       px={2}
+      color={phoenicisTheme.palette.overlayText.main}
     >
       <Stack flexDirection="column" justifyContent={'center'}>
         <Stack flexDirection="row">
@@ -37,19 +38,19 @@ const Footer: FC = () => {
           <Typography variant="body2">{t('title.agreements')}</Typography>
         </a>
       </Stack>
-
-      <Stack flexDirection="column" justifyContent={'center'}>
+      <Box flexGrow={4} />
+      <Stack flexDirection="column" justifyContent={'center'} >
         <Typography variant="body2">{t('title.network')}</Typography>
         <Stack flexDirection="row" justifyContent={'center'}>
-          <IconButton component="a" href="https://www.facebook.com/" target="_blank" rel="noreferrer noopener"><FacebookOutlined /></IconButton>
-          <IconButton component="a" href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener"><Instagram /></IconButton>
+          <IconButton component="a" href="https://www.facebook.com/" target="_blank" rel="noreferrer noopener" color='inherit'><FacebookOutlined /></IconButton>
+          <IconButton component="a" href="https://www.instagram.com/" target="_blank" rel="noreferrer noopener" color='inherit'><Instagram /></IconButton>
         </Stack>
         <Stack flexDirection="row" justifyContent={'center'}>
-          <IconButton component="a" href="https://www.youtube.com/" target="_blank" rel="noreferrer noopener"><Youtube /></IconButton>
-          <IconButton component="a" href="https://www.twitter.com/" target="_blank" rel="noreferrer noopener"><Twitter /></IconButton>
+          <IconButton component="a" href="https://www.youtube.com/" target="_blank" rel="noreferrer noopener" color='inherit'><Youtube /></IconButton>
+          <IconButton component="a" href="https://www.twitter.com/" target="_blank" rel="noreferrer noopener" color='inherit'><Twitter /></IconButton>
         </Stack>
       </Stack>
-
+      <Box flexGrow={5} />
       <Stack flexDirection="column" justifyContent={'center'}>
         <ButtonGroup size="small" color="inherit" variant="text" orientation="vertical">
           <BetterButton onClick={() => changeLng('fr')}>FR</BetterButton>
